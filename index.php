@@ -129,7 +129,7 @@ function change_number($number) {
                 <h2>Открытые лоты</h2>
             </div>
             <ul class="lots__list">
-                <?php foreach ($items_structure as $key => $val) ?>
+                <?php foreach ($items_structure as $key => $val): ?>
                 <!--заполните этот список из массива с товарами-->
                 <li class="lots__item lot">
                     <div class="lot__image">
@@ -149,7 +149,7 @@ function change_number($number) {
                         </div>
                     </div>
                 </li>
-
+                <?php endforeach; ?>
             </ul>
         </section>
     </main>
