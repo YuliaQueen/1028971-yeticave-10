@@ -56,7 +56,7 @@ function change_number($number) {
         $price_round = number_format($price_round, 0,'.',' ');
     }
 
-    return $price_round.' '.'<b class="rub">р</b>';
+    return $price_round.' '.'&#8381;';
 }
 
 
