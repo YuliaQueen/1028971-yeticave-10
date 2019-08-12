@@ -3,6 +3,7 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Юлия';
 
+
 $category = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
 
 $items_structure =
@@ -49,6 +50,7 @@ $items_structure =
             'url_img' => 'img/lot-6.jpg'
         ]
    ]
+
 
 
 
@@ -121,7 +123,7 @@ $items_structure =
             <h2>Открытые лоты</h2>
         </div>
         <ul class="lots__list">
-            <?php foreach ($items_structure as $key => $val) ?>
+            <?php foreach ($items_structure as $val): ?>
             <!--заполните этот список из массива с товарами-->
             <li class="lots__item lot">
                 <div class="lot__image">
@@ -141,7 +143,7 @@ $items_structure =
                     </div>
                 </div>
             </li>
-
+            <? endforeach; ?>
         </ul>
     </section>
 </main>
