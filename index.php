@@ -124,7 +124,7 @@ $items_structure =
         </div>
         <ul class="lots__list">
             <?php foreach ($items_structure as $val): ?>
-            <!--заполните этот список из массива с товарами-->
+
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?=$val['url_img'] ?>" width="350" height="260" alt="">
