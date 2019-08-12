@@ -143,7 +143,7 @@ $items_structure =
                     </div>
                 </div>
             </li>
-            <? endforeach; ?>
+            <?php endforeach; ?>
         </ul>
     </section>
 </main>
