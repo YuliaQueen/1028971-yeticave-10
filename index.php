@@ -56,9 +56,8 @@ function change_number($number) {
         $price_round = number_format($price_round, 0,'.',' ');
     }
 
-    return $price_round.' '.'&#8381;';
+    return $price_round;
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -94,7 +93,6 @@ function change_number($number) {
                         <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
                         <a class="user-menu__logout" href="#">Выход</a>
                     </div>
-
                 <?php else: ?>
                     <ul class="user-menu__list">
                         <li class="user-menu__item">
@@ -130,25 +128,25 @@ function change_number($number) {
             </div>
             <ul class="lots__list">
                 <?php foreach ($items_structure as $key => $val): ?>
-                <!--заполните этот список из массива с товарами-->
-                <li class="lots__item lot">
-                    <div class="lot__image">
-                        <img src="<?=$val['url_img'] ?>" width="350" height="260" alt="">
-                    </div>
-                    <div class="lot__info">
-                        <span class="lot__category"><?=$val['category'] ?></span>
-                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$val['name'] ?></a></h3>
-                        <div class="lot__state">
-                            <div class="lot__rate">
-                                <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?=change_number($val['price']) ?></span>
-                            </div>
-                            <div class="lot__timer timer">
-                                12:23
+                    <!--заполните этот список из массива с товарами-->
+                    <li class="lots__item lot">
+                        <div class="lot__image">
+                            <img src="<?=$val['url_img'] ?>" width="350" height="260" alt="">
+                        </div>
+                        <div class="lot__info">
+                            <span class="lot__category"><?=$val['category'] ?></span>
+                            <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$val['name'] ?></a></h3>
+                            <div class="lot__state">
+                                <div class="lot__rate">
+                                    <span class="lot__amount">Стартовая цена</span>
+                                    <span class="lot__cost"><?=change_number($val['price']) ?> &#8381;</span>
+                                </div>
+                                <div class="lot__timer timer">
+                                    12:23
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         </section>
