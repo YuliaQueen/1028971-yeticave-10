@@ -7,6 +7,7 @@ function include_template($name, array $data = []) {
     if (!is_readable($name))  {
 
         return $result;
+
     }
 
     ob_start();

@@ -3,7 +3,8 @@ require('function.php');
 require('data.php');
 
 $main_content = include_template('main.php', [
-    'items_structure' => $items_structure
+    'items_structure' => $items_structure,
+    'category' => $category
 
 ]);
 
