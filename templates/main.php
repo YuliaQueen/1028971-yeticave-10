@@ -29,6 +29,13 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?=esc(change_number($val['price'])) ?> &#8381;</span>
                         </div>
+
+                        <?php if (time_class($val['date_to_end'])): ?>
+                            <div class="lot__timer timer timer——finishing">
+                                <?= time_to_end($val['date_to_end']); ?>
+                            </div>
+                        <?php endif ?>
+
                         <div class="lot__timer timer">
                             <?= time_to_end($val['date_to_end']); ?>
                         </div>

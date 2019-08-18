@@ -45,3 +45,14 @@ function time_to_end ($arr) {
     return $h_end.':'.$m_end;
 
 }
+
+//Должна добавлять css-класс timer——finishing в разметку, возможно не будет работать
+function time_class($finish_time)
+{
+    $time_left_unix = strtotime($finish_time) - time();
+    if ($time_left_unix <= 3600) {
+        return true;
+    } else {
+        return false;
+    }
+}
