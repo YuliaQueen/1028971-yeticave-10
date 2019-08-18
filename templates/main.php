@@ -30,7 +30,7 @@
                             <span class="lot__cost"><?=esc(change_number($val['price'])) ?> &#8381;</span>
                         </div>
                         <div class="lot__timer timer">
-                            12:23
+                            <?= time_to_end($val['date_to_end']); ?>
                         </div>
                     </div>
                 </div>
