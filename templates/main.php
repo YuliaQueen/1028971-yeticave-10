@@ -30,9 +30,21 @@
                             <span class="lot__cost"><?=esc(change_number($val['price'])) ?> &#8381;</span>
                         </div>
 
-                        <div class="lot__timer timer <?if (time_class($val['date_to_end'])) { print("timer--finishing"); }?>">
-                            <?= time_to_end($val['date_to_end']); ?>
-                        </div>
+                        <?php $finishing_status = time_class($val['date_to_end']); ?>
+                        <?php if($finishing_status == 0): ?>
+                            <div class="lot__timer timer timer--finishing">
+                                Лот завершен!
+                            </div>
+                        <?php elseif ($finishing_status == 1): ?>
+                            <div class="lot__timer timer timer--finishing">
+                                <?= time_to_end($val['date_to_end']); ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="lot__timer timer">
+                                <?= time_to_end($val['date_to_end']); ?>
+                            </div>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </li>
