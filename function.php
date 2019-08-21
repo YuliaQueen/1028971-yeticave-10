@@ -69,7 +69,7 @@ function time_class($ends_str) {
     $date_now   = new DateTime();
     $difference = $date_then->diff($date_now, false);
     $flag = 0;
-    if ($difference >= 3600) {
+    if ($difference <= '1 hour') {
         $flag = 1;
         return $flag;
     } else return '';
