@@ -52,15 +52,22 @@ function time_to_end($ends_str)
     $date_then  = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
     $date_now   = new DateTime();
     $difference = $date_then->diff($date_now, false);
+
+    if ($date_then < $date_now) {
+        return print('Лот завершен!');
+    }
+
     if ($difference->y > 0) { // Если годов минимум 1
         return  $difference->format('%y') . ' г';
     } elseif ($difference->m > 0) { // Если месяцев минимум 1
         return  $difference->format('%m') . ' м';
     } elseif ($difference->d > 0) { // Если дней минимум 1
         return  $difference->format('%d') . ' д';
-    } else { // Если меньше
+    }  else { // Если меньше
         return  $difference->format('%H час. %i мин.');
     }
+
+
 }
 
 //Должна добавлять css-класс timer——finishing в разметку
