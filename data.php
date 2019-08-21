@@ -39,7 +39,7 @@ $items_structure =
             'category' => 'Ботинки',
             'price' => 10999,
             'url_img' => 'img/lot-4.jpg',
-            'date_to_end' =>  '2019-08-19'
+            'date_to_end' =>  '2019-08-22'
         ],
 
         [

@@ -1,4 +1,5 @@
 <?php
+
 //Шаблонизатор
 function include_template($name, array $data = []) {
     $name = 'templates/' . $name;
@@ -32,16 +33,40 @@ function esc($str) {
     return $text;
 }
 
-//Функция для подсчета оставшегося времени до закрытия лота
 
-function time_to_end ($arr) {
 
-    $time_end = strtotime($arr);
-    $time_now = time();
-    $secs_to_end = $time_end - $time_now;
-    $h_end = str_pad(floor($secs_to_end/3600), 2, '0', STR_PAD_LEFT);
-    $m_end = str_pad(floor(($secs_to_end % 3600) / 60), 2, '0', STR_PAD_RIGHT);
+function time_to_end($ends_str)
+{
+    $date_then  = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
+    $date_now   = new DateTime();
+    $difference = $date_then->diff($date_now, false);
 
-    return $h_end.':'.$m_end;
 
+
+
+
+    if ($difference->y > 0) { // Если годов минимум 1
+        return  $difference->format('%y') . ' г';
+    } elseif ($difference->m > 0) { // Если месяцев минимум 1
+        return  $difference->format('%m') . ' м';
+    } elseif ($difference->d > 0) { // Если дней минимум 1
+        return  $difference->format('%d') . ' д';
+    } else { // Если меньше
+        return  $difference->format('%H час. %i мин.');
+    }
 }
+
+//добавляет класс в разметку
+function time_class($ends_str) {
+    $date_then  = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
+    $date_now   = new DateTime();
+    if($date_then < $date_now) {
+        return 0;
+    }
+    $difference = $date_then->diff($date_now, false);
+
+    if ($difference -> h <= 1 ) {
+        return 1;
+    } else return 2;
+
+};
