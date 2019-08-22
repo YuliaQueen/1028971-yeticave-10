@@ -7,7 +7,7 @@ USE yeti_cave;
 CREATE TABLE IF NOT EXISTS users (
                                      user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
                                      user_registration_date DATETIME NOT NULL,
-                                     user_email VARCHAR(128) NOT NULL UNIQUE ,
+                                     user_email VARCHAR(128) NOT NULL UNIQUE,
                                      user_name VARCHAR(128) NOT NULL,
                                      user_password VARCHAR(255) NOT NULL,
                                      user_avatar VARCHAR(512),

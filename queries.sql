@@ -35,13 +35,13 @@ SELECT * FROM categories;
 SELECT lot_name, lot_start_price, lot_picture, bids.bid_amount, lot_category FROM lots
 JOIN bids
 ON lot_id = bids.bid_lot
-WHERE CURRENT_TIMESTAMP < lot.lot_end_date
-ORDER BY lot.lot_creation_date DESC;
+WHERE CURRENT_TIMESTAMP < lots.lot_end_date
+ORDER BY lots.lot_creation_date DESC;
 
 /*3-показать лот по его id. Получите также название категории, к которой принадлежит лот*/
-SELECT lots.*, category_name.categories FROM  lots
-JOIN categories ON c.category_name = l.lot_category
-WHERE lots.lot_id = '1';
+SELECT l.*, c.category_name FROM  lots AS l
+JOIN categories AS c ON c.category_name = l.lot_category
+WHERE l.lot_id = '1';
 
 //4-обновить название лота по его идентификатору
 UPDATE users SET user_password = '369852147'
@@ -49,11 +49,11 @@ WHERE user_id = '2';
 
 /*Получить список ставок
 для лота по его идентификатору с сортировкой по дате*/
-SELECT * FROM bids
-JOIN lots
+SELECT * FROM bids AS b
+JOIN lots AS l
 ON b.bid_lot = l.lot_id
-WHERE l.lot_id = '3'
-ORDER BY bids.bid_date DESC
+WHERE l.lot_id = '32'
+ORDER BY b.bid_date DESC
 LIMIT 10;
 
 
