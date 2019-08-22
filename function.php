@@ -70,3 +70,4 @@ function time_class($ends_str) {
     } else return 2;
 
 };
+
