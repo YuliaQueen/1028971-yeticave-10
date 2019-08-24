@@ -22,7 +22,7 @@
                     <img src="<?=$val['lot_picture'] ?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category"><?=esc($val['lot_category'])?></span>
+                    <span class="lot__category"><?=esc($val['category'])?></span>
                     <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$val['lot_name'] ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
