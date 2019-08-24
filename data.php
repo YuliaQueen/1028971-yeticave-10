@@ -40,6 +40,8 @@ $items_structure =
             'price' => 10999,
             'url_img' => 'img/lot-4.jpg',
             'date_to_end' =>  '2019-08-25'
+           
+
         ],
 
         [
