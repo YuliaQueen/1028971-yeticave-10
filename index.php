@@ -28,7 +28,8 @@ if (!$link) {
     $content = include_template('error.php', ['error' => $error]);
 }
 else {
-    $sql =   'SELECT *, cat.category_name AS category FROM lots JOIN categories AS cat ON lot_category = cat.category_id';
+    $sql =   'SELECT *, cat.category_name AS category FROM lots JOIN categories AS cat ON lot_category = cat.category_id '
+            .'ORDER BY lot_end_date ASC';
 
 
     $result = mysqli_query($link, $sql);//результат запроса
