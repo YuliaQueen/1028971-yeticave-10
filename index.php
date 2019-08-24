@@ -1,6 +1,26 @@
 <?php
 require('function.php');
 require('data.php');
+require ('init.php');
+
+if (!$link) {
+    $error = mysqli_connect_error();
+    $content = include_template('error.php', ['error' => $error]);
+}
+else {
+    $sql = 'SELECT * FROM categories';
+
+    $result = mysqli_query($link, $sql);
+
+    if ($result) {
+        $category = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    else {
+        $error = mysqli_error($link);
+        $content = include_template('error.php', ['error' => $error]);
+    }
+}
+
 
 $main_content = include_template('main.php', [
     'items_structure' => $items_structure,
