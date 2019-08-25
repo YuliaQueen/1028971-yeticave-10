@@ -2,12 +2,13 @@
 require('function.php');
 require('data.php');
 require ('init.php');
+
 //подключение категорий
 //если нет подключения к базе, выводим страницу с ошибкой
 if (!$link) {
     $error = mysqli_connect_error();
-    $content = include_template('error.php', ['error' => $error]);
-}
+    $layout_content = include_template('error.php', ['error' => $error]);
+    }
 else {
     $sql = 'SELECT * FROM categories';//запрос
 
@@ -18,14 +19,13 @@ else {
     }
     else {
         $error = mysqli_error($link);//если ошибка
-        $content = include_template('error.php', ['error' => $error]);
     }
 }
 
 //подключение лотов
 if (!$link) {
     $error = mysqli_connect_error();
-    $content = include_template('error.php', ['error' => $error]);
+    $layout_content = include_template('error.php', ['error' => $error]);
 }
 else {
     $sql =   'SELECT *, cat.category_name AS category FROM lots JOIN categories AS cat ON lot_category = cat.category_id '
@@ -39,7 +39,7 @@ else {
     }
     else {
         $error = mysqli_error($link);//если ошибка
-        $content = include_template('error.php', ['error' => $error]);
+        $layout_content = include_template('error.php', ['error' => $error]);
     }
 }
 
