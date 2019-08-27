@@ -16,6 +16,7 @@ function include_template($name, array $data = []) {
     include($name);
     return ob_get_clean();
 }
+
 //Форматирует цену, добавляет пробел между разрядмаи
 function change_number($number) {
     $price_round = ceil($number);
@@ -41,10 +42,6 @@ function time_to_end($ends_str)
     $date_now   = new DateTime();
     $difference = $date_then->diff($date_now, false);
 
-
-
-
-
     if ($difference->y > 0) { // Если годов минимум 1
         return  $difference->format('%y') . ' г';
     } elseif ($difference->m > 0) { // Если месяцев минимум 1
@@ -69,4 +66,24 @@ function time_class($ends_str) {
         return 1;
     } else return 2;
 
+};
+
+//проверяет наличие ставки для текущего лота
+function get_last_bid($link, $id, $default) {
+            $sql = "select bid_amount from bids
+        where bid_lot = $id
+                order by bid_amount desc
+        limit 1";
+
+    $result = mysqli_query($link, $sql);//результат запроса
+
+    if ($result) {
+        $bid = mysqli_fetch_row($result);
+
+        if ($bid !== NULL) {
+            return $bid[0];
+
+        }
+    }
+    return $default;
 };
