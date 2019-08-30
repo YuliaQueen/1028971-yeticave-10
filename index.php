@@ -1,55 +1,24 @@
 <?php
-require('function.php');
-require('data.php');
 require ('init.php');
 
-//подключение категорий
-//если нет подключения к базе, выводим страницу с ошибкой
-if (!$link) {
-    $error = mysqli_connect_error();
-    $layout_content = include_template('error.php', ['error' => $error]);
-    }
-else {
-    $sql = 'SELECT * FROM categories';//запрос
+// Категории
+$category = query_all('SELECT * FROM categories');
 
-    $result = mysqli_query($link, $sql);//результат запроса
+// Лоты
+$lots = query_all('
+SELECT
+    l.*,
+    c.category_name AS category
+FROM lots l
+JOIN categories AS c ON l.lot_category = c.category_id
+ORDER BY l.lot_end_date ASC');
 
-    if ($result) {
-        $category = mysqli_fetch_all($result, MYSQLI_ASSOC);//результат запроса выводим в массив
-    }
-    else {
-        $error = mysqli_error($link);//если ошибка
-    }
-}
-
-//подключение лотов
-if (!$link) {
-    $error = mysqli_connect_error();
-    $layout_content = include_template('error.php', ['error' => $error]);
-}
-else {
-    $sql =   'SELECT *, cat.category_name AS category FROM lots JOIN categories AS cat ON lot_category = cat.category_id '
-            .'ORDER BY lot_end_date ASC';
-
-
-    $result = mysqli_query($link, $sql);//результат запроса
-
-    if ($result) {
-        $items_structure = mysqli_fetch_all($result, MYSQLI_ASSOC);//результат запроса выводим в массив
-    }
-    else {
-        $error = mysqli_error($link);//если ошибка
-        $layout_content = include_template('error.php', ['error' => $error]);
-    }
-}
-
-//шаблонизация
+// шаблонизация
 $main_content = include_template('main.php', [
-    'items_structure' => $items_structure,
+    'items_structure' => $lots,
     'category' => $category
 
 ]);
-
 
 $layout_content = include_template('layout.php', [
     'category' => $category,
