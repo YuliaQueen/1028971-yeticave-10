@@ -674,7 +674,6 @@ main.container {
 
 .timer--finishing {
   background-color: #f84646;
-
 }
 
 .timer--win {
@@ -920,7 +919,6 @@ input:invalid .form__error{
 
 .lot-item {
   padding-top: 50px;
-
 }
 
 .lot-item h2 {
