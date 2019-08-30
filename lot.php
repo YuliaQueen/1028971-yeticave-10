@@ -24,6 +24,7 @@ if ($lot_info === NULL) {
 // шаблонизация
 $main_content = include_template('lot.php', [
     'lot_info' => $lot_info,
+    'category' => $category
 ]);
 
 $layout_content = include_template('layout.php', [
