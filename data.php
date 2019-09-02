@@ -15,7 +15,7 @@ $items_structure =
             'category' => 'Доски и лыжи',
             'price' => 10999,
             'url_img' => 'img/lot-1.jpg',
-            'date_to_end' =>  '2019-08-20'
+            'date_to_end' =>  '2019-08-25'
         ],
 
         [
@@ -23,7 +23,7 @@ $items_structure =
             'category' => 'Доски и лыжи',
             'price' => 159999,
             'url_img' => 'img/lot-2.jpg',
-            'date_to_end' =>  '2019-08-19'
+            'date_to_end' =>  '2019-08-23'
         ],
 
         [
@@ -31,7 +31,7 @@ $items_structure =
             'category' => 'Крепления',
             'price' => 8000,
             'url_img' => 'img/lot-3.jpg',
-            'date_to_end' =>  '2019-08-21'
+            'date_to_end' =>  '2019-08-22'
         ],
 
         [
@@ -39,7 +39,9 @@ $items_structure =
             'category' => 'Ботинки',
             'price' => 10999,
             'url_img' => 'img/lot-4.jpg',
-            'date_to_end' =>  '2019-08-22'
+            'date_to_end' =>  '2019-08-25'
+           
+
         ],
 
         [
@@ -47,7 +49,7 @@ $items_structure =
             'category' => 'Одежда',
             'price' => 7500,
             'url_img' => 'img/lot-5.jpg',
-            'date_to_end' =>  '2019-08-19'
+            'date_to_end' =>  '2019-08-22'
         ],
 
         [
@@ -55,6 +57,6 @@ $items_structure =
             'category' => 'Разное',
             'price' => 5400,
             'url_img' => 'img/lot-6.jpg',
-            'date_to_end' =>  '2019-08-20'
+            'date_to_end' =>  '2019-08-19'
         ]
     ];

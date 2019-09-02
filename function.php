@@ -50,7 +50,7 @@ function time_to_end($ends_str)
     } elseif ($difference->m > 0) { // Если месяцев минимум 1
         return  $difference->format('%m') . ' м';
     } elseif ($difference->d > 0) { // Если дней минимум 1
-        return  $difference->format('%d') . ' д';
+        return  $difference->format('%d') . ' дн.';
     } else { // Если меньше
         return  $difference->format('%H час. %i мин.');
     }

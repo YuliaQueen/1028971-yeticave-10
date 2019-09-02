@@ -4,8 +4,8 @@
     <ul class="promo__list">
         <?php foreach ($category as $index): ?>
             <!--заполните этот список из массива категорий-->
-            <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="pages/all-lots.html"><?=esc($index); ?></a>
+            <li class="promo__item promo__item--<?=esc($index['category_value'])?>">
+                <a class="promo__link" href="pages/all-lots.html"><?=esc($index['category_name']); ?></a>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -19,29 +19,29 @@
             <!--заполните этот список из массива с товарами-->
             <li class="lots__item lot">
                 <div class="lot__image">
-                    <img src="<?=$val['url_img'] ?>" width="350" height="260" alt="">
+                    <img src="<?=$val['lot_picture'] ?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
                     <span class="lot__category"><?=esc($val['category'])?></span>
-                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$val['name'] ?></a></h3>
+                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$val['lot_name'] ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=esc(change_number($val['price'])) ?> &#8381;</span>
+                            <span class="lot__cost"><?=esc(change_number($val['lot_start_price'])) ?> &#8381;</span>
                         </div>
 
-                        <?php $finishing_status = time_class($val['date_to_end']); ?>
+                        <?php $finishing_status = time_class($val['lot_end_date']); ?>
                         <?php if($finishing_status == 0): ?>
                             <div class="lot__timer timer timer--finishing">
                                 Лот завершен!
                             </div>
                         <?php elseif ($finishing_status == 1): ?>
                             <div class="lot__timer timer timer--finishing">
-                                <?= time_to_end($val['date_to_end']); ?>
+                                <?= time_to_end($val['lot_end_date']); ?>
                             </div>
                         <?php else: ?>
                             <div class="lot__timer timer">
-                                <?= time_to_end($val['date_to_end']); ?>
+                                <?= time_to_end($val['lot_end_date']); ?>
                             </div>
                         <?php endif; ?>
 
