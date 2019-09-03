@@ -58,7 +58,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($category as $index): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=esc($index); ?></a>
+                    <a href="pages/all-lots.html"><?=esc($index['category_name']); ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
