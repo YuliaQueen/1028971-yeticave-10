@@ -5,6 +5,7 @@ header('Content-Type: text/html; charset=UTF-8');
 require ('function.php');
 require('data.php');
 
+
 $db_host = ref($_SERVER['DATABASE_HOST'], 'localhost');
 $db_user = ref($_SERVER['DATABASE_USER'], 'root');
 $db_pass = ref($_SERVER['DATABASE_PASS'], '');
