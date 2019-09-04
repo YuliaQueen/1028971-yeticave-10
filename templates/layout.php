@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 <div class="page-wrapper">
 
     <header class="main-header">
@@ -35,7 +36,7 @@
                 <?php else: ?>
                     <ul class="user-menu__list">
                         <li class="user-menu__item">
-                            <a href="#">Регистрация</a>
+                            <a href="/sign-up.php">Регистрация</a>
                         </li>
                         <li class="user-menu__item">
                             <a href="#">Вход</a>
@@ -47,6 +48,16 @@
             </nav>
         </div>
     </header>
+
+    <nav class="nav">
+        <ul class="nav__list container">
+            <?php foreach ($category as $value): ?>
+                <li class="nav__item">
+                    <a href="pages/all-lots.html"><?=esc($value['category_name']); ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
 
     <main class="container">
         <?=$content?>
