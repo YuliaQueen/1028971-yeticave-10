@@ -1,9 +1,12 @@
 <?php
 require ('init.php');
 
-// Категории
+
 $form = $_POST;
+
 $category = query_all('SELECT * FROM categories');
+//$user_name = query_one('SELECT user_name FROM users');
+
 
 $errors = [];
 
@@ -16,16 +19,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'user_password' => 'Введите пароль',
         'user_contacts' => 'Укажите контакты'
     ];
+//todo сделать проверку на валидность емайла, длины пароля, уникальность имени?, длины текста в текстэреа,
 
     //проверка на заполненность полей
     foreach ($required as $field) {
-        if (empty($_POST[$field])) {
+        if (empty($form[$field])) {
             $errors[$field] = $fields[$field];
         }
     };
+    //проверка длины пароля
+    if (!empty($form['user_password'])) {
+        if ($form['user_password'] < 6 && $form['user_password'] > 12) {
+            $errors['user_password'] = 'Пароль должен быть от 6 до 12 символов';
+        }
+    };
+
+    //проверка валидности емайл
+    if (!empty($form['user_email'])) {
+        if (!filter_var($form['user_email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['user_email'] = 'Введите корректный емайл';
+        }
+    };
+
+
 
     if (empty($errors)) {
-
         $email = mysqli_real_escape_string($link, $form['user_email']);
         $sql = "SELECT * FROM users WHERE user_email = '$email'";
         $res = mysqli_query($link, $sql);
@@ -35,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         else {
             $new_user = [
-                $_POST['user_email'],
-                $_POST['user_name'],
-                $_POST['user_password'] = password_hash($form['user_password'], PASSWORD_DEFAULT),
-                $_POST['user_contacts'],
+                $form['user_email'],
+                $form['user_name'],
+                $form['user_password'] = password_hash($form['user_password'], PASSWORD_DEFAULT),
+                $form['user_contacts'],
                 $date_reg = date('Y-m-d')
             ];
 

@@ -1,31 +1,31 @@
 
 
-<form class="form container form--invalid" action="sign-up.php" method="post" autocomplete="off"> <!-- form
+<form class="form container <?= count($errors) ? ' form--invalid': ''; ?>" action="sign-up.php" method="post" autocomplete="off"> <!-- form
     --invalid -->
     <h2>Регистрация нового аккаунта</h2>
 
-    <div class="form__item"> <!-- form__item--invalid -->
+    <div class="form__item <?= isset($errors['user_email']) ? 'form__item--invalid': '' ?>"> <!-- form__item--invalid -->
         <label for="email">E-mail <sup>*</sup></label>
         <input id="email" type="text" name="user_email" placeholder="Введите e-mail">
-        <span class="form__error">Введите e-mail</span>
+        <span class="form__error"><?= $errors['user_email']?></span>
     </div>
 
-    <div class="form__item">
+    <div class="form__item <?= isset($errors['user_password']) ? 'form__item--invalid': '' ?>">
         <label for="password">Пароль <sup>*</sup></label>
         <input id="password" type="password" name="user_password" placeholder="Введите пароль">
-        <span class="form__error">Введите пароль</span>
+        <span class="form__error"><?= $errors['user_password']?></span>
     </div>
 
-    <div class="form__item">
+    <div class="form__item <?= isset($errors['user_name']) ? 'form__item--invalid': '' ?>">
         <label for="name">Имя <sup>*</sup></label>
         <input id="name" type="text" name="user_name" placeholder="Введите имя">
-        <span class="form__error">Введите имя</span>
+        <span class="form__error"><?= $errors['user_name']?></span>
     </div>
 
-    <div class="form__item">
+    <div class="form__item <?= isset($errors['user_contacts']) ? 'form__item--invalid': '' ?>">
         <label for="message">Контактные данные <sup>*</sup></label>
         <textarea id="message" name="user_contacts" placeholder="Напишите как с вами связаться"></textarea>
-        <span class="form__error">Напишите как с вами связаться</span>
+        <span class="form__error"><?= $errors['user_contacts']?></span>
     </div>
 
     <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
