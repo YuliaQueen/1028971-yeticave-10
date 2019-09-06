@@ -208,4 +208,18 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
     }
 
     return $stmt;
+};
+
+function checkLogin($login) {
+    global $link;
+    $res = mysqli_query($link,"SELECT `user_name` FROM `users` WHERE `user_name`='$login'  LIMIT 1");
+    $result = mysqli_fetch_assoc($res);
+    return $result;
+};
+
+function checkEmail ($email) {
+    global $link;
+    $res = mysqli_query($link, "SELECT `user_email` FROM `users` WHERE `user_email` = $email LIMIT 1");
+    $result = mysqli_fetch_assoc($res);
+    return$result;
 }

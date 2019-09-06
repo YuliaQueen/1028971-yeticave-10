@@ -5,12 +5,11 @@ require ('init.php');
 $form = $_POST;
 
 $category = query_all('SELECT * FROM categories');
-//$user_name = query_one('SELECT user_name FROM users');
-
 
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $required = ['user_name', 'user_email', 'user_password', 'user_contacts'];
 
     $fields = [
@@ -19,7 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'user_password' => 'Введите пароль',
         'user_contacts' => 'Укажите контакты'
     ];
-//todo сделать проверку на валидность емайла, длины пароля, уникальность имени?, длины текста в текстэреа,
+
+    //проверка логина на уникальность
+    $user_in_form = $form['user_name'];
+    $user_in_db = checkLogin($user_in_form);
+
+    if ($user_in_db['user_name'] == $user_in_form) {
+        $errors['user_name'] = 'Пользователь с таким именем уже существует';
+    };
+
+
 
     //проверка на заполненность полей
     foreach ($required as $field) {
@@ -40,8 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['user_email'] = 'Введите корректный емайл';
         }
     };
-
-
+//    $email_in_form = $form['user_email'];
+//    $email_in_bd = checkEmail($email_in_form);
+//    if ($user_in_db['user_email'] == $email_in_form) {
+//        $errors['user_email'] = 'Пользователь с этим email уже зарегистрирован';
+//    }
 
     if (empty($errors)) {
         $email = mysqli_real_escape_string($link, $form['user_email']);
@@ -49,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $res = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($res) > 0) {
-            $errors[] = 'Пользователь с этим email уже зарегистрирован';
+            $errors['user_email'] = 'Пользователь с этим email уже зарегистрирован';
+
+
         }
         else {
             $new_user = [

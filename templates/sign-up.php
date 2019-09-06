@@ -6,7 +6,7 @@
 
     <div class="form__item <?= isset($errors['user_email']) ? 'form__item--invalid': '' ?>"> <!-- form__item--invalid -->
         <label for="email">E-mail <sup>*</sup></label>
-        <input id="email" type="text" name="user_email" placeholder="Введите e-mail">
+        <input id="email" type="text" name="user_email" placeholder="Введите e-mail" value="<?=getPostVal('user_email'); ?>">
         <span class="form__error"><?= $errors['user_email']?></span>
     </div>
 
@@ -18,13 +18,13 @@
 
     <div class="form__item <?= isset($errors['user_name']) ? 'form__item--invalid': '' ?>">
         <label for="name">Имя <sup>*</sup></label>
-        <input id="name" type="text" name="user_name" placeholder="Введите имя">
+        <input id="name" type="text" name="user_name" placeholder="Введите имя" value="<?=getPostVal('user_name'); ?>">
         <span class="form__error"><?= $errors['user_name']?></span>
     </div>
 
     <div class="form__item <?= isset($errors['user_contacts']) ? 'form__item--invalid': '' ?>">
         <label for="message">Контактные данные <sup>*</sup></label>
-        <textarea id="message" name="user_contacts" placeholder="Напишите как с вами связаться"></textarea>
+        <textarea id="message" name="user_contacts" placeholder="Напишите как с вами связаться"><?=trim(getPostVal('user_contacts')); ?></textarea>
         <span class="form__error"><?= $errors['user_contacts']?></span>
     </div>
 
