@@ -37,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: index.php');
 
     };
-    var_dump($_SESSION['user_name']);
-    die();
+  
 };
 
 // шаблонизация

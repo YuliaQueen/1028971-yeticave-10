@@ -23,9 +23,7 @@ $main_content = include_template('main.php', [
 $layout_content = include_template('layout.php', [
     'category' => $category,
     'content' => $main_content,
-    'title' => $title,
-    'is_auth' => $is_auth,
-
+    'title' => 'Главная'
 ] );
 
 print($layout_content);

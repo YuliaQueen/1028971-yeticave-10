@@ -1,3 +1,5 @@
+
+
 <form class="form container" action="login.php" method="post" <?= count($errors) ? ' form--invalid': ''; ?>> <!-- form--invalid -->
     <h2>Вход</h2>
     <div class="form__item <?= isset($errors['user_email']) ? ' form__item--invalid': '' ?>"> <!-- form__item--invalid -->

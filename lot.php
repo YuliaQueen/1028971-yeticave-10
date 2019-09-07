@@ -31,9 +31,6 @@ $layout_content = include_template('layout.php', [
     'category' => $category,
     'content' => $main_content,
     'title' => $lot_info['lot_name'], // Тут поменяли заголовок
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-
 ]);
 
 print($layout_content);
