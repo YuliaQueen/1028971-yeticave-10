@@ -71,7 +71,7 @@ if (isset($_SESSION['user_name'])) {
                 (int)$_POST['lot_category'],
                 (int)$_POST['lot_start_price'],
                 $_POST['lot_end_date'],
-                $_POST['lot_author'] = 1,
+                $_POST['lot_author'] = $_SESSION['user_name']['user_id'],
                 (int)$_POST['lot_bet_step'],
                 $_POST['lot_creation_date'] = date('Y-m-d'),
                 $_POST['lot_picture'] = $upload,
