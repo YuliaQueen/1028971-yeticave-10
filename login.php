@@ -11,18 +11,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($required as $field) {
         if (empty($form[$field])) {
             $errors[$field] = 'Это поле надо заполнить';
+
         }
     };
+//проверка введенного в форму емайл в базе данных
+    $email_in_form = $form['user_email'];
+    $user_data = query_one("SELECT * FROM `users` WHERE `user_email` = '$email_in_form'");
+
+    if ($user_data['user_email'] === false) {
+        $errors['user_email'] = 'Пользователь не найден';
+    }
+
+//Проверка введенного в форму пароля в базе данных
+    $user_pass = $user_data['user_password'];
+    $pass_in_form = $form['user_password'];
+    $check_pass = password_verify($pass_in_form, $user_pass);
+
+    if (!$check_pass) {
+        $errors['user_password'] = 'Неверный пароль';
+    }
 
 //если массив с ошибками пуст...
     if (empty($errors)) {
-//        $email_in_form = $form['user_email'];
-//        $email = query_scalar("SELECT `user_email` FROM `users` WHERE `user_email` = '$email_in_form'");
-//        var_dump($email);
-//        die();
+        $_SESSION['user_name'] = $user_data;
         header('Location: index.php');
-    };
 
+    };
+    var_dump($_SESSION['user_name']);
+    die();
 };
 
 // шаблонизация
@@ -34,8 +50,6 @@ $main_content = include_template('login.php', [
 $layout_content = include_template('layout.php', [
     'category' => $category,
     'content' => $main_content,
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
     'title' => 'Вход'
 
 ]);
