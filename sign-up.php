@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ];
 
     //проверка логина на уникальность
-    $user_in_form = $form['user_name'];
+    $user_in_form = mysqli_real_escape_string($link,$form['user_name']);
     $user_in_db = checkLogin($user_in_form);
 
     if ($user_in_db['user_name'] == $user_in_form) {
@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = $fields[$field];
         }
     };
+
     //проверка длины пароля
     if (!empty($form['user_password'])) {
         if ($form['user_password'] < 6 && $form['user_password'] > 12) {
@@ -48,11 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['user_email'] = 'Введите корректный емайл';
         }
     };
-//    $email_in_form = $form['user_email'];
-//    $email_in_bd = checkEmail($email_in_form);
-//    if ($user_in_db['user_email'] == $email_in_form) {
-//        $errors['user_email'] = 'Пользователь с этим email уже зарегистрирован';
-//    }
+
 
     if (empty($errors)) {
         $email = mysqli_real_escape_string($link, $form['user_email']);
@@ -80,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         };
         if ($res && empty($errors)) {
             $user_id = mysqli_insert_id($link);
-            header('Location: /pages/login.html');
+            header('Location: /templates/login.php');
             exit();
         }
     };
