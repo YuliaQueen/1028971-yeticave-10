@@ -101,6 +101,9 @@ function query_one($sql) {
     if ($stmt) {
         $result = mysqli_fetch_assoc($stmt);
         mysqli_free_result($stmt);
+        if ($result === NULL) {
+            return false;
+        }
         return $result;
     } else {
         echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";

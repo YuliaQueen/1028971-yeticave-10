@@ -95,7 +95,6 @@ $main_content = include_template('sign-up.php', [
 $layout_content = include_template('layout.php', [
     'category' => $category,
     'content' => $main_content,
-    'is_auth' => $is_auth,
     'title' => 'Регистрация'
 
 ]);

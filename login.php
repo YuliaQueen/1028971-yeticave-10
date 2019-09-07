@@ -18,9 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email_in_form = $form['user_email'];
     $user_data = query_one("SELECT * FROM `users` WHERE `user_email` = '$email_in_form'");
 
-    if ($user_data['user_email'] === false) {
+    if ($user_data === false) {
         $errors['user_email'] = 'Пользователь не найден';
     }
+
 
 //Проверка введенного в форму пароля в базе данных
     $user_pass = $user_data['user_password'];
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: index.php');
 
     };
-  
+
 };
 
 // шаблонизация
