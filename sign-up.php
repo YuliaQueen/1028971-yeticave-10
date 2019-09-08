@@ -19,6 +19,13 @@ if (isset($_SESSION['user_name'])) {
             'user_contacts' => 'Укажите контакты'
         ];
 
+        //проверка на заполненность полей
+        foreach ($required as $field) {
+            if (empty($form[$field])) {
+                $errors[$field] = $fields[$field];
+            }
+        };
+
         //проверка логина на уникальность
         $user_in_form = mysqli_real_escape_string($link, $form['user_name']);
         $user_in_db = checkLogin($user_in_form);
@@ -28,12 +35,6 @@ if (isset($_SESSION['user_name'])) {
         };
 
 
-        //проверка на заполненность полей
-        foreach ($required as $field) {
-            if (empty($form[$field])) {
-                $errors[$field] = $fields[$field];
-            }
-        };
 
         //проверка длины пароля
         if (!empty($form['user_password'])) {
