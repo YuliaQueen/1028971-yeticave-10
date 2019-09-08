@@ -74,6 +74,7 @@ if (isset($_SESSION['user_name'])) {
                 $stmt = db_get_prepare_stmt($link, $sql, $new_user);
                 $res = mysqli_execute($stmt);
             };
+
             if ($res && empty($errors)) {
                 $user_id = mysqli_insert_id($link);
                 header('Location: /templates/login.php');
