@@ -5,7 +5,6 @@ require ('init.php');
 
 // Категории
 $category = query_all('SELECT * FROM categories');
-//$empty_cat = query_scalar('SELECT category_name FROM categories WHERE category_name = ""');
 
 
 $errors = [];
@@ -110,7 +109,6 @@ $main_content = include_template('add_lot.php', [
 $layout_content = include_template('layout.php', [
     'category' => $category,
     'content' => $main_content,
-    'is_auth' => $is_auth,
     'title' => 'Добавить лот'
 
 ]);
