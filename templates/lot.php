@@ -35,7 +35,7 @@
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>
-                        <span class="lot-item__cost"><?= count($bids) ? get_last_bid($lot_id, $lot_info['lot_start_price']) : change_number($lot_info['lot_start_price']).' &#8381;';?></span>
+                        <span class="lot-item__cost"><?= count($bids) ? change_number(get_last_bid($lot_id, $lot_info['lot_start_price'])).' &#8381;' : change_number($lot_info['lot_start_price']).' &#8381;';?></span>
                     </div>
                     <div class="lot-item__min-cost">
                         Мин. ставка <span><?=change_number($lot_info['lot_bet_step']).' &#8381;' ?></span>

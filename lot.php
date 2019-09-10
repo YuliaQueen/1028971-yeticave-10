@@ -35,11 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['bid'] = 'Введите ставку';
     };
 
+//    if ($bids[0]['bid_user'] == $_SESSION['user_name']['user_id']) {
+//        $errors = 'Нельзя сделать ставку к своему лоту';
+//    }
+
     $last_bid = query_scalar("SELECT bid_amount FROM bids WHERE bid_lot = '$lot_id' ORDER BY bid_date DESC LIMIT 1");
 
     if ((int)$_POST['bid'] < (int)$last_bid){
     $errors['bid'] = 'Слишком маленькая ставка';
     };
+
 
     if (empty($errors)) {
         $new_bid = [
