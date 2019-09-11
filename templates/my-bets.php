@@ -19,7 +19,7 @@
                 <div class="timer timer--finishing"><?= time_to_end($bets['lot_end_date']); ?></div>
             </td>
             <td class="rates__price">
-                <?=get_last_bid($bets['lot_id'], $bets['lot_start_price'])?>
+                <?=get_last_bid($bets['lot_id'], $bets['lot_start_price']).' &#8381;'?>
             </td>
             <td class="rates__time">
                 <?= $bets['bid_date'] ?>
