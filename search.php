@@ -8,6 +8,7 @@
     $errors = '';
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
         $q_search = strip_tags($_GET['search']);
         $search_result = query_all("SELECT *, lot_name FROM lots
         JOIN categories c on lots.lot_category = c.category_id
