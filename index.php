@@ -13,6 +13,9 @@ FROM lots l
 JOIN categories AS c ON l.lot_category = c.category_id
 ORDER BY l.lot_end_date ASC ');
 
+//пагинация
+
+
 // шаблонизация
 $main_content = include_template('main.php', [
     'items_structure' => $lots,
