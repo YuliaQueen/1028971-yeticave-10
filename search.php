@@ -7,6 +7,7 @@ $category = query_all('SELECT * FROM categories');
 $search_result = [];
 $errors = '';
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $q_search = strip_tags($_GET['search']);
     $search_result = query_all("SELECT *, lot_name FROM lots
@@ -33,5 +34,6 @@ $layout_content = include_template('layout.php', [
     'content' => $main_content,
     'title' => 'Результаты поиска'
 ]);
+
 
 print($layout_content);
