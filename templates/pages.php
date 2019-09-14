@@ -53,10 +53,9 @@
 </section>
 
 <ul class="pagination-list">
-    <li class="pagination-item pagination-item-prev"><a href="#">Назад</a></li>
-    <?php foreach ($pages as $page): ?>
-        <li class="pagination-item  <?php if ($page == $cur_page): ?> pagination-item-active <?php endif;
-        ?>"><a href="/?page=<?=$page;?>"><?=$page;?></a></li>
-    <?php endforeach; ?>
+    <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
+        <?php foreach ($pages as $page): ?>
+            <li class="pagination-item <?php if ($page == $cur_page): ?>pagination__item--active<?php endif; ?>"><a href="/?pagination=<?=$page;?>"><?=$page;?></a></li>
+        <?php endforeach; ?>
     <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
 </ul>
