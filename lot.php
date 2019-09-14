@@ -69,9 +69,6 @@
     };
 
 
-
-
-
     // шаблонизация
     $main_content = include_template('lot.php', [
         'lot_info' => $lot_info,
