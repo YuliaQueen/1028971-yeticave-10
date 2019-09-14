@@ -7,7 +7,7 @@ $form = $_POST;
 $category = query_all('SELECT * FROM categories');
 
 $errors = [];
-if (isset($_SESSION['user_name'])) {
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $required = ['user_name', 'user_email', 'user_password', 'user_contacts'];
@@ -83,10 +83,7 @@ if (isset($_SESSION['user_name'])) {
         };
 
     };
-} else {
-    header("HTTP/1.1 403 Forbidden" );
-    exit();
-};
+
 
 // шаблонизация
 $main_content = include_template('sign-up.php', [
