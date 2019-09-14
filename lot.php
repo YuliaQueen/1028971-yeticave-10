@@ -1,12 +1,14 @@
 <?php
-require ('init.php');
 
-// Категории
-$category = query_all('SELECT * FROM categories');
+    require ('init.php');
 
-// Текуший лот
-$lot_id = (int) ref($_GET['lot_id'], 0);
+    // Категории
+    $category = query_all('SELECT * FROM categories');
 
+    // Текуший лот
+    $lot_id = (int) ref($_GET['lot_id'], 0);
+
+  
 //Инфо о текущем лоте
 $lot_info = query_one("
 SELECT
