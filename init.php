@@ -1,9 +1,10 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 header('Content-Type: text/html; charset=UTF-8');
 require ('function.php');
-require('data.php');
+
 
 $db_host = ref($_SERVER['DATABASE_HOST'], 'localhost');
 $db_user = ref($_SERVER['DATABASE_USER'], 'root');

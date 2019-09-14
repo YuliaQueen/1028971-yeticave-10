@@ -56,4 +56,8 @@ WHERE l.lot_id = '32'
 ORDER BY b.bid_date DESC
 LIMIT 10;
 
-
+//Полнотекстовый поиск
+CREATE FULLTEXT INDEX search_lots
+ON lots(lot_description, lot_name);
+//просмотр стоп-слов
+SELECT * FROM information_schema.INNODB_FT_DEFAULT_STOPWORD;
