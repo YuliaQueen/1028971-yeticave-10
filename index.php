@@ -44,11 +44,15 @@ $pages = range(1, $pages_count);
     ]);
 
 
+
     $layout_content = include_template('layout.php', [
         'category' => $category,
         'content' => $main_content,
         'title' => 'Главная'
     ]);
+
+
+
 
 
 
