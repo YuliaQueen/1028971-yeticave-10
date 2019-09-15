@@ -1,5 +1,5 @@
 <?php
-require ('init.php');
+require('init.php');
 
 // Категории
 $category = query_all('SELECT * FROM categories');
@@ -21,11 +21,10 @@ JOIN categories AS c ON l.lot_category = c.category_id
 ORDER BY l.lot_end_date DESC LIMIT $page_items OFFSET $offset");
 
 
-
 if (isset($items_count)) {
     $pages_count = ceil((int)$lots_count['cnt'] / $page_items);
 
-    if ($cur_page > $pages_count || ! $cur_page) {
+    if ($cur_page > $pages_count || !$cur_page) {
         http_response_code(404);
         exit();
     }
@@ -33,27 +32,22 @@ if (isset($items_count)) {
 $pages = range(1, $pages_count);
 
 
-    // шаблонизация
-    $main_content = include_template('main.php', [
-        'items_structure' => $items_count,
-        'category' => $category,
-        'pages' => $pages,
-        'cur_page' => $cur_page,
-        'pages_count' => $pages_count
+// шаблонизация
+$main_content = include_template('main.php', [
+    'items_structure' => $items_count,
+    'category' => $category,
+    'pages' => $pages,
+    'cur_page' => $cur_page,
+    'pages_count' => $pages_count
 
-    ]);
-
-
-
-    $layout_content = include_template('layout.php', [
-        'category' => $category,
-        'content' => $main_content,
-        'title' => 'Главная'
-    ]);
+]);
 
 
-
-
+$layout_content = include_template('layout.php', [
+    'category' => $category,
+    'content' => $main_content,
+    'title' => 'Главная'
+]);
 
 
 print($layout_content);

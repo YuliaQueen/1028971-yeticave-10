@@ -1,5 +1,5 @@
 <?php
-require ('init.php');
+require('init.php');
 
 $category = query_all('SELECT * FROM categories');
 $my_id = $_SESSION['user_name']['user_id'];

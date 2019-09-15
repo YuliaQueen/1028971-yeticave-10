@@ -1,6 +1,6 @@
 <?php
 
-require ('init.php');
+require('init.php');
 
 // Категории
 $category = query_all('SELECT * FROM categories');
