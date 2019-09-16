@@ -240,6 +240,14 @@ function db_get_prepare_stmt($link, $sql, $data = [])
 
 ;
 
+
+/**
+ * Проверяет существует ли логин, введенный в форму входа, в БД
+ *
+ * @param $login string Ресурс соединения
+ *
+ * @return array|null true or false
+ */
 function checkLogin($login)
 {
     global $link;

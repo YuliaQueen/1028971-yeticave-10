@@ -1,5 +1,8 @@
 <?php
 require('init.php');
+require ('vendor/autoload.php');
+
+
 
 // Категории
 $category = query_all('SELECT * FROM categories');
