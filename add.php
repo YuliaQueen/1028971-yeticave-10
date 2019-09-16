@@ -1,6 +1,5 @@
 <?php
-require ('init.php');
-
+require('init.php');
 
 
 // Категории
@@ -11,8 +10,13 @@ $errors = [];
 if (isset($_SESSION['user_name'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $required = ['lot_name', 'lot_start_price', 'lot_bet_step',
-            'lot_category', 'lot_description'];
+        $required = [
+            'lot_name',
+            'lot_start_price',
+            'lot_bet_step',
+            'lot_category',
+            'lot_description'
+        ];
 
 
         $fields = [
@@ -66,7 +70,8 @@ if (isset($_SESSION['user_name'])) {
         if (count($errors) < 1) {
 
 
-            $new_lot = [$_POST['lot_name'],
+            $new_lot = [
+                $_POST['lot_name'],
                 (int)$_POST['lot_category'],
                 (int)$_POST['lot_start_price'],
                 $_POST['lot_end_date'],
@@ -74,7 +79,8 @@ if (isset($_SESSION['user_name'])) {
                 (int)$_POST['lot_bet_step'],
                 $_POST['lot_creation_date'] = date('Y-m-d'),
                 $_POST['lot_picture'] = $upload,
-                $_POST['lot_description']];
+                $_POST['lot_description']
+            ];
 
 
             $sql = "INSERT INTO lots (lot_name, lot_category, lot_start_price,
@@ -83,7 +89,7 @@ if (isset($_SESSION['user_name'])) {
 
             $stmt = db_get_prepare_stmt($link, $sql, $new_lot);
 
-            $res = mysqli_execute($stmt);
+            $res = mysqli_stmt_execute($stmt);
 
             if ($res) {
                 $lot_id = mysqli_insert_id($link);
@@ -95,7 +101,7 @@ if (isset($_SESSION['user_name'])) {
         };
     };
 } else {
-    header("HTTP/1.1 403 Forbidden" );
+    header("HTTP/1.1 403 Forbidden");
     exit();
 };
 

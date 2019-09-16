@@ -1,0 +1,16 @@
+{
+    "name": "ula/yeti_cave",
+    "description": "Auction snowbord",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yulia Koroleva",
+            "email": "youlka25@yandex.ru"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.2",
+      "ext-mysqli": "*"
+    }
+}

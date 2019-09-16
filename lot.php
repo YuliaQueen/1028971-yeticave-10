@@ -1,14 +1,14 @@
 <?php
 
-    require ('init.php');
+require('init.php');
 
-    // Категории
-    $category = query_all('SELECT * FROM categories');
+// Категории
+$category = query_all('SELECT * FROM categories');
 
-    // Текуший лот
-    $lot_id = (int) ref($_GET['lot_id'], 0);
+// Текуший лот
+$lot_id = (int)ref($_GET['lot_id'], 0);
 
-  
+
 //Инфо о текущем лоте
 $lot_info = query_one("
 SELECT
@@ -18,7 +18,7 @@ FROM lots l
 JOIN categories AS c ON l.lot_category = c.category_id
 WHERE lot_id = $lot_id");
 
-if ($lot_info === NULL) {
+if ($lot_info === null) {
     include '404.php';
     die();
 };
@@ -27,7 +27,6 @@ if ($lot_info === NULL) {
 $bids = query_all("SELECT bid_date, bid_amount, bid_user, user_name FROM bids
 JOIN users ON bids.bid_user = users.user_id
 WHERE bid_lot = '$lot_id' ORDER BY bid_date DESC LIMIT 10");
-
 
 
 $errors = [];
@@ -43,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $last_bid = query_scalar("SELECT bid_amount FROM bids WHERE bid_lot = '$lot_id' ORDER BY bid_date DESC LIMIT 1");
 
-    if ((int)$_POST['bid'] < (int)$last_bid){
-    $errors['bid'] = 'Слишком маленькая ставка';
+    if ((int)$_POST['bid'] < (int)$last_bid) {
+        $errors['bid'] = 'Слишком маленькая ставка';
     };
 
 
@@ -69,9 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     };
 };
-
-
-
 
 
 // шаблонизация

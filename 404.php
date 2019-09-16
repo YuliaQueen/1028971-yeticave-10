@@ -1,5 +1,5 @@
 <?php
-require ('init.php');
+require('init.php');
 
 // шаблонизация
 $main_content = include_template('login.php', [
