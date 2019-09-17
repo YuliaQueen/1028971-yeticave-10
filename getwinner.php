@@ -58,7 +58,7 @@ WHERE 1
             $message = (new Swift_Message('Ваша ставка выиграла'))
                 ->setFrom('keks@phpdemo.ru', "YetiCave")
                 ->setTo($winner_info['user_email'])
-                ->setBody(include_template('email.php', [
+                ->setBody($mail = include_template('email.php', [
                     'user_name' => $winner_info['user_name'],
                     'lot_name' => $winner_info['lot_name'],
                     'lot_id' => $winner_info['bid_lot']
