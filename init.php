@@ -3,13 +3,13 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 header('Content-Type: text/html; charset=UTF-8');
-require ('function.php');
+require('function.php');
 
 
 $db_host = ref($_SERVER['DATABASE_HOST'], 'localhost');
 $db_user = ref($_SERVER['DATABASE_USER'], 'root');
 $db_pass = ref($_SERVER['DATABASE_PASS'], '');
-$db_name = ref($_SERVER['DATABASE_DB'],   'yeti_cave');
+$db_name = ref($_SERVER['DATABASE_DB'], 'yeti_cave');
 
 //подключаем базу данных
 $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
