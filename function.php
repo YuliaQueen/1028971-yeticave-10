@@ -49,10 +49,9 @@ function time_to_end($ends_str)
         return $difference->format('%m') . ' м';
     } elseif ($difference->d > 0) { // Если дней минимум 1
         return $difference->format('%d') . ' дн.';
-    } else { // Если меньше
+    }  // Если меньше
         return $difference->format('%H час. %i мин.');
-    }
-}
+};
 
 //добавляет css класс в разметку
 function time_class($ends_str)
@@ -68,13 +67,9 @@ function time_class($ends_str)
 
     if ($difference->h <= 1) {
         return 1;
-    } else {
-        return 2;
     }
-
-}
-
-;
+        return 2;
+};
 
 //проверяет наличие ставки для текущего лота
 function get_last_bid($id, $default)
@@ -85,22 +80,10 @@ function get_last_bid($id, $default)
         limit 1");
     if ($result == false) {
         return $default;
-    } else {
+    }
         return $result;
-    }
-}
+};
 
-;
-
-//Reference values
-function ref(&$value, $default = null)
-{
-    if (isset($value)) {
-        return $value;
-    } else {
-        return $default;
-    }
-}
 
 // Запросить все сроки из БД
 function query_all($link, $sql)
@@ -110,11 +93,10 @@ function query_all($link, $sql)
         $result = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
         mysqli_free_result($stmt);
         return $result;
-    } else {
+    }
         echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
         return false;
-    }
-}
+};
 
 // Запросить 1 строку из БД
 function query_one($link,$sql)
@@ -127,11 +109,10 @@ function query_one($link,$sql)
             return false;
         }
         return $result;
-    } else {
+    }
         echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
         return false;
-    }
-}
+};
 
 // Запроосить 1е значение первой строчки из БЗ
 function query_scalar($sql)
@@ -145,11 +126,10 @@ function query_scalar($sql)
             return false;
         }
         return $result[0];
-    } else {
+    }
         echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
         return false;
-    }
-}
+    };
 
 //проверяет расширение файла
 function checkfile($filename, $tempname)

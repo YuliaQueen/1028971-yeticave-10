@@ -7,7 +7,7 @@ $my_id = $_SESSION['user_name']['user_id'];
 $my_bets = query_all($link,"SELECT *, bid_lot, category_name FROM bids
 JOIN lots l on bids.bid_lot = l.lot_id
 JOIN categories c on l.lot_category = c.category_id
-WHERE bid_user = $my_id  ORDER BY bid_date DESC
+WHERE bid_user = $my_id AND lot_end_date >= CURDATE() ORDER BY bid_date DESC
 ");
 
 

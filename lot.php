@@ -6,7 +6,7 @@ require('init.php');
 $category = query_all($link,'SELECT * FROM categories');
 
 // Текуший лот
-$lot_id = (int)ref($_GET['lot_id'], 0);
+$lot_id = (int)$_GET['lot_id'] ?? 0;
 
 
 //Инфо о текущем лоте
