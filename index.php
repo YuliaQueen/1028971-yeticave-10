@@ -39,7 +39,7 @@ $pages = range(1, $pages_count);
 
 // шаблонизация
 $main_content = include_template('main.php', [
-    'items_structure' => $items_count,
+    'items_count' => $items_count,
     'category' => $category,
     'pages' => $pages,
     'cur_page' => $cur_page,

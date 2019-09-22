@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //проверка логина на уникальность
     $user_in_form = mysqli_real_escape_string($link, $form['user_name']);
-    $user_in_db = checkLogin($user_in_form);
+    $user_in_db = checkLogin($link, $user_in_form);
 
     if ($user_in_db['user_name'] == $user_in_form) {
         $errors['user_name'] = 'Пользователь с таким именем уже существует';

@@ -17,7 +17,7 @@
         <h2>Открытые лоты</h2>
     </div>
     <ul class="lots__list">
-        <?php foreach ($items_structure as $val): ?>
+        <?php foreach ($items_count as $val): ?>
             <!--заполните этот список из массива с товарами-->
             <li class="lots__item lot">
                 <div class="lot__image">

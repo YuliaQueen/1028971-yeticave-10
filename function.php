@@ -1,6 +1,12 @@
 <?php
 
-//Шаблонизатор
+/**
+ * Функция шаблонизации
+ *
+ * @param string $name HTML-шаблон
+ * @param array $data Данные для вставки в шаблон
+ * @return string Сгенерированный шаблон
+ */
 function include_template($name, $data = [])
 {
     $name = __DIR__ . '/templates/' . $name;
@@ -25,7 +31,7 @@ function change_number($number)
     return $price_round;
 }
 
-//Преобразует теги 'html special chars' - преобразует в мнемноики, strip_tags - удаляет теги
+//Преобразует теги 'html special chars' - преобразует в мнемноики
 function esc($str)
 {
     return htmlspecialchars($str);
@@ -48,15 +54,18 @@ function time_to_end($ends_str)
     }
 }
 
-//добавляет класс в разметку
+//добавляет css класс в разметку
 function time_class($ends_str)
 {
     $date_then = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
+
     $date_now = new DateTime();
+
     if ($date_then < $date_now) {
         return 0;
     }
     $difference = $date_then->diff($date_now, false);
+
     if ($difference->h <= 1) {
         return 1;
     } else {
@@ -114,7 +123,7 @@ function query_one($link,$sql)
     if ($stmt) {
         $result = mysqli_fetch_assoc($stmt);
         mysqli_free_result($stmt);
-        if ($result === null) {
+        if ($result == null) {
             return false;
         }
         return $result;
@@ -132,7 +141,7 @@ function query_scalar($sql)
     if ($stmt) {
         $result = mysqli_fetch_row($stmt);
         mysqli_free_result($stmt);
-        if ($result === null) {
+        if ($result == null) {
             return false;
         }
         return $result[0];
@@ -241,13 +250,13 @@ function db_get_prepare_stmt($link, $sql, $data = [])
 /**
  * Проверяет существует ли логин, введенный в форму входа, в БД
  *
+ * @param $link mysqli ресурс соединения с БД
  * @param $login string Ресурс соединения
  *
  * @return array|null true or false
  */
-function checkLogin($login)
+function checkLogin($link, $login)
 {
-    global $link;
     $res = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_name`='$login'  LIMIT 1");
     $result = mysqli_fetch_assoc($res);
 
