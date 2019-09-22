@@ -3,10 +3,9 @@ require('init.php');
 
 
 // Категории
-$category = query_all('SELECT * FROM categories');
-
-
+$category = query_all($link,'SELECT * FROM categories');
 $errors = [];
+
 if (isset($_SESSION['user_name'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -33,14 +32,13 @@ if (isset($_SESSION['user_name'])) {
             }
 
         };
-
-        if ($_POST['lot_category'] === 'Выберите категорию') {
-            $errors['lot_category'] = 'Заполните это поле';
+        //Проверка заполненности категории
+        if ($_POST['lot_category']=="default") {
+            $errors['lot_category'] = 'Выберите категорию';
         }
 
-//проверка файла
+        //Загрузка файла, проверка расширения
         if (isset($_FILES['lot_picture']) && $_FILES['lot_picture']['error'] === 0) {
-
             $upload = 'img/' . $_FILES['lot_picture']['name'];
             $tmp_name = $_FILES['lot_picture']['tmp_name'];
             $size = getimagesize($tmp_name);
@@ -48,28 +46,37 @@ if (isset($_SESSION['user_name'])) {
             if ($size[0] < 1200 || $size[1] < 1200) {
                 $check = checkfile($upload, $tmp_name);
 
-                if ($check !== false) {
+                if ($check != false) {
                     saveimageas($check, $upload);
                 } else {
                     $errors['lot_picture'] = 'Слишком большое расширение файла';
                 }
-
-            } else {
-                $errors['lot_picture'] = 'Картинка не загружена';
             }
         };
 
-        //проверка даты окончания торгов
+
+
+        //Проверка - заружен ли файл
+        if (!empty($_FILES['lot_picture']['error'])) {
+            $errors['lot_picture'] = "Загрузите файл";
+        };
+
+        //Проверка даты окончания торгов
         if (isset($_POST['lot_end_date'])) {
             if (strtotime($_POST['lot_end_date']) - time() < 86400) {
                 $errors['lot_end_date'] = 'Введите период более суток';
             }
         };
 
-//если ошибок 0, то начинаем формировать запрос на добавление лота в базу
+        //Проверка шага ставки
+        if ((int)$_POST['lot_bet_step'] <= 0) {
+            $errors['lot_bet_step'] = "Шаг ставки - больше нуля";
+        };
+
+
+
+        //Если ошибок 0, то начинаем формировать запрос на добавление лота в базу
         if (count($errors) < 1) {
-
-
             $new_lot = [
                 $_POST['lot_name'],
                 (int)$_POST['lot_category'],
@@ -106,10 +113,11 @@ if (isset($_SESSION['user_name'])) {
 };
 
 
+
 // шаблонизация
 $main_content = include_template('add_lot.php', [
     'category' => $category,
-    'errors' => $errors
+    'errors' => $errors,
 ]);
 
 $layout_content = include_template('layout.php', [

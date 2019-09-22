@@ -12,5 +12,8 @@
     "require": {
         "swiftmailer/swiftmailer": "^6.2",
       "ext-mysqli": "*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.4"
     }
 }

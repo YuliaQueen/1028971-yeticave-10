@@ -29,7 +29,6 @@ function change_number($number)
 function esc($str)
 {
     return htmlspecialchars($str);
-    //$text = strip_tags($str);
 }
 
 
@@ -75,7 +74,7 @@ function get_last_bid($id, $default)
         where bid_lot = $id
         order by bid_amount desc
         limit 1");
-    if ($result === false) {
+    if ($result == false) {
         return $default;
     } else {
         return $result;
@@ -95,9 +94,8 @@ function ref(&$value, $default = null)
 }
 
 // Запросить все сроки из БД
-function query_all($sql)
+function query_all($link, $sql)
 {
-    global $link;
     $stmt = mysqli_query($link, $sql);
     if ($stmt) {
         $result = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
@@ -110,9 +108,8 @@ function query_all($sql)
 }
 
 // Запросить 1 строку из БД
-function query_one($sql)
+function query_one($link,$sql)
 {
-    global $link;
     $stmt = mysqli_query($link, $sql);
     if ($stmt) {
         $result = mysqli_fetch_assoc($stmt);
@@ -148,14 +145,14 @@ function query_scalar($sql)
 //проверяет расширение файла
 function checkfile($filename, $tempname)
 {
-    if (($pos = strrpos($filename, ".")) !== false) {
+    if (($pos = strrpos($filename, ".")) != false) {
         $ext = substr($filename, $pos);
         $found = false;
-        if (strcasecmp($ext, ".png") === 0) {
+        if (strcasecmp($ext, ".png") == 0) {
             $found = imagecreatefrompng($tempname);
-        } elseif (strcasecmp($ext, ".jpg") === 0 || strcasecmp($ext, ".jpeg") === 0) {
+        } elseif (strcasecmp($ext, ".jpg") == 0 || strcasecmp($ext, ".jpeg") == 0) {
             $found = imagecreatefromjpeg($tempname);
-        } elseif (strcasecmp($ext, ".gif") === 0) {
+        } elseif (strcasecmp($ext, ".gif") == 0) {
             $found = imagecreatefromgif($tempname);
         }
         return $found;
@@ -166,7 +163,7 @@ function checkfile($filename, $tempname)
 //сохраняет проверенный файл
 function saveimageas($checked, $save_as)
 {
-    if ($checked !== false) {
+    if ($checked != false) {
         imagepng($checked, $save_as);
     }
 }
@@ -253,6 +250,7 @@ function checkLogin($login)
     global $link;
     $res = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_name`='$login'  LIMIT 1");
     $result = mysqli_fetch_assoc($res);
+
     return $result;
 }
 

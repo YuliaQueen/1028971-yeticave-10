@@ -1,15 +1,15 @@
 <section class="lot-item container">
 
-    <h2><?= $lot_info['lot_name']; ?></h2>
+    <h2><?= esc($lot_info['lot_name']); ?></h2>
 
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
-                <img src="<?= $lot_info['lot_picture']; ?>" width="730" height="548" alt="Сноуборд">
+                <img src="<?= esc($lot_info['lot_picture']); ?>" width="730" height="548" alt="Сноуборд">
 
             </div>
-            <p class="lot-item__category">Категория: <span><?= $lot_info['category']; ?></span></p>
-            <p class="lot-item__description"><?= $lot_info['lot_description'] ?></p>
+            <p class="lot-item__category">Категория: <span><?= esc($lot_info['category']); ?></span></p>
+            <p class="lot-item__description"><?= esc($lot_info['lot_description']) ?></p>
         </div>
         <div class="lot-item__right">
 
@@ -52,7 +52,7 @@
                             <?php if ($finishing_status == 0): ?>
                                 <span class="form__error">Нельзя сделать ставку</span>
                             <?php else: ?>
-                                <span class="form__error"><?= $errors['bid'] ?></span>
+                                <span class="form__error"><?= $errors['bid'] ?? '' ?></span>
                             <?php endif; ?>
 
                         </p>
@@ -70,9 +70,9 @@
                     <?php foreach ($bids as $bid): ?>
                         <tr class="history__item">
 
-                            <td class="history__name"><?= $bid['user_name'] ?></td>
-                            <td class="history__price"><?= $bid['bid_amount'] ?></td>
-                            <td class="history__time"><?= $bid['bid_date'] ?></td>
+                            <td class="history__name"><?= esc($bid['user_name']) ?></td>
+                            <td class="history__price"><?= esc($bid['bid_amount']) ?></td>
+                            <td class="history__time"><?= esc($bid['bid_date']) ?></td>
 
                         </tr>
                     <? endforeach; ?>

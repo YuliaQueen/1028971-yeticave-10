@@ -1,5 +1,5 @@
 <?php
-require('init.php');
+
 require('vendor/autoload.php');
 
 $sql = "SELECT l.*
@@ -9,7 +9,7 @@ WHERE 1
 	AND lot_end_date + INTERVAL 23 HOUR + INTERVAL 59 MINUTE + INTERVAL 59 SECOND <= NOW()";
 
 
-$finished_lots = query_all($sql); //лоты, которые закончились
+$finished_lots = query_all($link, $sql); //лоты, которые закончились
 
 if (!empty($finished_lots)) {
     $finished_lots_ids = [];
@@ -32,7 +32,7 @@ WHERE 1
 	AND b.bid_amount = bmax.bid_amount";
 
 
-    $finished_lots_winners_temp = query_all($sql); //временный массив с победителями
+    $finished_lots_winners_temp = query_all($link, $sql); //временный массив с победителями
 
     $finished_lots_winners = [];
 
@@ -58,7 +58,7 @@ WHERE 1
             $message = (new Swift_Message('Ваша ставка выиграла'))
                 ->setFrom('keks@phpdemo.ru', "YetiCave")
                 ->setTo($winner_info['user_email'])
-                ->setBody(include_template('email.php', [
+                ->setBody($mail = include_template('email.php', [
                     'user_name' => $winner_info['user_name'],
                     'lot_name' => $winner_info['lot_name'],
                     'lot_id' => $winner_info['bid_lot']

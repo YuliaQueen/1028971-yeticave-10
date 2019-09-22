@@ -1,6 +1,6 @@
 <div class="container">
     <section class="lots">
-        <h2>Результаты поиска по запросу «<span><?= $q_search ?></span>»</h2>
+        <h2>Результаты поиска по запросу «<span><?= strip_tags($_GET['search']) ?></span>»</h2>
         <ul class="lots__list">
             <?php if (count($search_result)): ?>
                 <?php foreach ($search_result as $item): ?>
@@ -32,13 +32,14 @@
 
         </ul>
     </section>
-    <!--    <ul class="pagination-list">-->
-    <!--        <li class="pagination-item pagination-item-prev"><a>Назад</a></li>-->
-    <!--        <li class="pagination-item pagination-item-active"><a>1</a></li>-->
-    <!--        <li class="pagination-item"><a href="#">2</a></li>-->
-    <!--        <li class="pagination-item"><a href="#">3</a></li>-->
-    <!--        <li class="pagination-item"><a href="#">4</a></li>-->
-    <!--        <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>-->
-    <!--    </ul>-->
+
+    <ul class="pagination-list">
+        <li class="pagination-item pagination-item-prev"><a href="#">Назад</a></li>
+        <?php foreach ($pages as $page): ?>
+            <li class="pagination-item  <?php if ($page == $cur_page): ?> pagination-item-active <?php endif;
+            ?>"><a href="/search.php?search=<?=$q_search;?>&find=Найти&page=<?=$page; ?>"><?= $page; ?></a></li>
+        <?php endforeach; ?>
+        <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
+    </ul>
 </div>
 

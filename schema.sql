@@ -51,3 +51,5 @@ CREATE TABLE IF NOT EXISTS bids (
                                     FOREIGN KEY (bid_user) REFERENCES users(user_id),
                                     FOREIGN KEY (bid_lot) REFERENCES lots(lot_id)
 );
+
+CREATE FULLTEXT INDEX lots_search ON lots(lot_name, lot_description);
