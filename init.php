@@ -18,8 +18,10 @@ if (!$link) {
     exit(include_template('error.php', ['error' => $error]));
 }
 
-//устанавливаем кодировку
+
+//устанавливаем кодировку таймзону
 mysqli_set_charset($link, 'utf8');
+date_default_timezone_set('Europe/Moscow');
 
 $category = [];
 $content = '';

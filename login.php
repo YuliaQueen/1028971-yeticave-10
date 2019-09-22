@@ -16,11 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     };
 //проверка введенного в форму емайл в базе данных
     $email_in_form = $form['user_email'];
-    $user_data = query_one("SELECT * FROM `users` WHERE `user_email` = '$email_in_form'");
+    $user_data = query_one($link,"SELECT * FROM `users` WHERE `user_email` = '$email_in_form'");
 
     if ($user_data === false) {
         $errors['user_email'] = 'Пользователь не найден';
-    }
+    };
+
+    if (!filter_var($form['user_email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['user_email'] = 'Введите корректный емайл';
+    };
 
 
 //Проверка введенного в форму пароля в базе данных

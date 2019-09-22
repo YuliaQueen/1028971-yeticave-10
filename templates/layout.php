@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?= $title ?></title>
+    <title><?= esc($title) ?></title>
     <link href="../css/normalize.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 </head>
@@ -53,7 +53,7 @@
         <ul class="nav__list container">
             <?php foreach ($category as $value): ?>
                 <li class="nav__item">
-                    <a href="category.php?category_id=<?= $value['category_id'] ?>"><?= esc($value['category_name']); ?></a>
+                    <a href="category.php?category_id=<?= (int)$value['category_id'] ?>"><?= esc($value['category_name']); ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -70,7 +70,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($category as $index): ?>
                 <li class="nav__item">
-                    <a href="category.php?category_id=<?= $index['category_id'] ?>"><?= esc($index['category_name']); ?></a>
+                    <a href="category.php?category_id=<?= (int)$index['category_id'] ?>"><?= esc($index['category_name']); ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -133,7 +133,6 @@
     </div>
 </footer>
 
-<script src="flatpickr.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

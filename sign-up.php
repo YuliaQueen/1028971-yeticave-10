@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($res && empty($errors)) {
             $user_id = mysqli_insert_id($link);
-            header('Location: /templates/login.php');
+            header('Location: login.php');
             exit();
         }
     };
