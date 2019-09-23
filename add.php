@@ -3,7 +3,7 @@ require('init.php');
 
 
 // Категории
-$category = query_all($link,'SELECT * FROM categories');
+$category = query_all($link, 'SELECT * FROM categories');
 $errors = [];
 
 if (isset($_SESSION['user_name'])) {
@@ -33,7 +33,7 @@ if (isset($_SESSION['user_name'])) {
 
         };
         //Проверка заполненности категории
-        if ($_POST['lot_category']=="default") {
+        if ($_POST['lot_category'] == "default") {
             $errors['lot_category'] = 'Выберите категорию';
         }
 
@@ -44,16 +44,15 @@ if (isset($_SESSION['user_name'])) {
             $size = getimagesize($tmp_name);
 
             if ($size[0] < 1200 || $size[1] < 1200) {
-                $check = checkfile($upload, $tmp_name);
+                $check = checkFile($upload, $tmp_name);
 
                 if ($check != false) {
-                    saveimageas($check, $upload);
+                    saveImages($check, $upload);
                 } else {
                     $errors['lot_picture'] = 'Слишком большое расширение файла';
                 }
             }
         };
-
 
 
         //Проверка - заружен ли файл
@@ -72,7 +71,6 @@ if (isset($_SESSION['user_name'])) {
         if ((int)$_POST['lot_bet_step'] <= 0) {
             $errors['lot_bet_step'] = "Шаг ставки - больше нуля";
         };
-
 
 
         //Если ошибок 0, то начинаем формировать запрос на добавление лота в базу
@@ -111,7 +109,6 @@ if (isset($_SESSION['user_name'])) {
     header("HTTP/1.1 403 Forbidden");
     exit();
 };
-
 
 
 // шаблонизация

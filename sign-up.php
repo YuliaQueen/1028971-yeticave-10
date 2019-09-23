@@ -85,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 };
 
 
-
 // шаблонизация
 $main_content = include_template('sign-up.php', [
     'category' => $category,

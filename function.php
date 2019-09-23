@@ -19,8 +19,12 @@ function include_template($name, $data = [])
     return ob_get_clean();
 }
 
-
-//Форматирует цену, добавляет пробел между разрядмаи
+/** Форматирует цену, добавляет пробел между разрядмаи
+ *
+ * @param int $number
+ *
+ * @return float|string
+ */
 function change_number($number)
 {
     $price_round = ceil($number);
@@ -31,13 +35,22 @@ function change_number($number)
     return $price_round;
 }
 
-//Преобразует теги 'html special chars' - преобразует в мнемноики
+/**Преобразует теги 'html special chars' - преобразует в мнемноики
+ * @param string $str
+ *
+ * @return string
+ */
 function esc($str)
 {
     return htmlspecialchars($str);
 }
 
 
+/** Высчитывает разницу между двумя датами
+ * @param string $ends_str
+ * @return string
+ * @throws Exception
+ */
 function time_to_end($ends_str)
 {
     $date_then = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
@@ -50,10 +63,17 @@ function time_to_end($ends_str)
     } elseif ($difference->d > 0) { // Если дней минимум 1
         return $difference->format('%d') . ' дн.';
     }  // Если меньше
-        return $difference->format('%H час. %i мин.');
-};
+    return $difference->format('%H час. %i мин.');
+}
 
-//добавляет css класс в разметку
+;
+
+
+/**Сравнивает две даты
+ * @param $ends_str
+ * @return int
+ * @throws Exception
+ */
 function time_class($ends_str)
 {
     $date_then = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
@@ -68,24 +88,39 @@ function time_class($ends_str)
     if ($difference->h <= 1) {
         return 1;
     }
-        return 2;
-};
+    return 2;
+}
 
-//проверяет наличие ставки для текущего лота
+;
+
+/** Возвращает последнюю ставку для лота или его стартовую цену
+ * @param int $id id лота
+ * @param int $default начальная цена
+ * @return bool
+ */
 function get_last_bid($id, $default)
 {
-    $result = query_scalar("select bid_amount from bids
+    $link = mysqli_connect('localhost', 'root', '', 'yeti_cave');
+    $sql = "select bid_amount from bids
         where bid_lot = $id
         order by bid_amount desc
-        limit 1");
+        limit 1";
+    $result = query_scalar($link, $sql);
     if ($result == false) {
         return $default;
     }
-        return $result;
-};
+    return $result;
+}
+
+;
 
 
-// Запросить все сроки из БД
+/**Запрашивает все строки из БД
+ * @param resource $link ресурс соединения
+ * @param mysqli $sql запрос
+ * @return array|bool|null
+ *
+ */
 function query_all($link, $sql)
 {
     $stmt = mysqli_query($link, $sql);
@@ -94,12 +129,18 @@ function query_all($link, $sql)
         mysqli_free_result($stmt);
         return $result;
     }
-        echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
-        return false;
-};
+    echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
+    return false;
+}
 
-// Запросить 1 строку из БД
-function query_one($link,$sql)
+;
+
+/** Запрашивает одну строку из БД
+ * @param resource $link ресурс соединения
+ * @param mysqli $sql запрос
+ * @return array|bool|null
+ */
+function query_one($link, $sql)
 {
     $stmt = mysqli_query($link, $sql);
     if ($stmt) {
@@ -110,14 +151,19 @@ function query_one($link,$sql)
         }
         return $result;
     }
-        echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
-        return false;
-};
+    echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
+    return false;
+}
 
-// Запроосить 1е значение первой строчки из БЗ
-function query_scalar($sql)
+;
+
+/** запрос значения ключа из первой строки массива из БД
+ * @param resource $link ресурс соединения
+ * @param mysqli $sql запрос
+ * @return bool
+ */
+function query_scalar($link, $sql)
 {
-    global $link;
     $stmt = mysqli_query($link, $sql);
     if ($stmt) {
         $result = mysqli_fetch_row($stmt);
@@ -127,30 +173,42 @@ function query_scalar($sql)
         }
         return $result[0];
     }
-        echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
-        return false;
-    };
+    echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
+    return false;
+}
 
-//проверяет расширение файла
-function checkfile($filename, $tempname)
+;
+
+/** Проверяет расширение загружаемого файла
+ * @param string $filename имя файла
+ * @param string $tempName временный путь к файлу
+ * @return bool|false|resource
+ */
+function checkFile($filename, $tempName)
 {
     if (($pos = strrpos($filename, ".")) != false) {
         $ext = substr($filename, $pos);
         $found = false;
         if (strcasecmp($ext, ".png") == 0) {
-            $found = imagecreatefrompng($tempname);
+            $found = imagecreatefrompng($tempName);
         } elseif (strcasecmp($ext, ".jpg") == 0 || strcasecmp($ext, ".jpeg") == 0) {
-            $found = imagecreatefromjpeg($tempname);
+            $found = imagecreatefromjpeg($tempName);
         } elseif (strcasecmp($ext, ".gif") == 0) {
-            $found = imagecreatefromgif($tempname);
+            $found = imagecreatefromgif($tempName);
         }
         return $found;
     }
     return false;
 }
 
-//сохраняет проверенный файл
-function saveimageas($checked, $save_as)
+;
+
+/**Сохраняет проверенный файл
+ * @param string $checked проверенный файл
+ * @param $save_as
+ *
+ */
+function saveImages($checked, $save_as)
 {
     if ($checked != false) {
         imagepng($checked, $save_as);
@@ -158,14 +216,17 @@ function saveimageas($checked, $save_as)
 }
 
 ;
-//сохраняет введенные в форму данные после перезагрузки страницы
+
+/**сохраняет введенные в форму данные после перезагрузки страницы
+ * @param string $name Строка, которую нужно сохранить
+ * @return mixed|string
+ */
 function getPostVal($name)
 {
     return $_POST[$name] ?? '';
 }
 
 ;
-
 
 /**
  * Создает подготовленное выражение на основе готового SQL запроса и переданных данных

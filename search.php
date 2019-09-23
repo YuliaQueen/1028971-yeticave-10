@@ -3,11 +3,9 @@
 require('init.php');
 
 // Категории
-$category = query_all($link,'SELECT * FROM categories');
+$category = query_all($link, 'SELECT * FROM categories');
 $search_result = [];
 $errors = '';
-
-
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -16,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $cur_page = $_GET['page'] ?? 1;
     $offset = ($cur_page - 1) * $page_items;
 
-    $search_result = query_all($link,"SELECT *, lot_name FROM lots
+    $search_result = query_all($link, "SELECT *, lot_name FROM lots
     JOIN categories c on lots.lot_category = c.category_id
     WHERE MATCH(lot_name, lot_description) AGAINST('$q_search')
     ORDER BY lot_end_date DESC LIMIT $page_items OFFSET $offset");
@@ -33,8 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         $errors = "Ничего не найдено по вашему запросу";
     }
-
-
 
 
 };
