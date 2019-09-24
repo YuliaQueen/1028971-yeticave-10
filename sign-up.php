@@ -4,7 +4,7 @@ require('init.php');
 
 $form = $_POST;
 
-$category = query_all('SELECT * FROM categories');
+$category = query_all($link, 'SELECT * FROM categories');
 
 $errors = [];
 

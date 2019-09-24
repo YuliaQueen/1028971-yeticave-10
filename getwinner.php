@@ -8,7 +8,7 @@ WHERE 1
 	AND lot_winner IS NULL
 	AND lot_end_date + INTERVAL 23 HOUR + INTERVAL 59 MINUTE + INTERVAL 59 SECOND <= NOW()";
 
-
+$winner_info = [];
 $finished_lots = query_all($link, $sql); //лоты, которые закончились
 
 if (!empty($finished_lots)) {

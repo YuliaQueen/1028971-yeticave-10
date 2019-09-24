@@ -128,9 +128,10 @@ function query_all($link, $sql)
         $result = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
         mysqli_free_result($stmt);
         return $result;
+    } else {
+        echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
+        return false;
     }
-    echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
-    return false;
 }
 
 ;

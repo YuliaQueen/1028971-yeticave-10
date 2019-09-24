@@ -6,21 +6,21 @@
                 <?php foreach ($search_result as $item): ?>
                     <li class="lots__item lot">
                         <div class="lot__image">
-                            <img src="<?= $item['lot_picture'] ?>" width="350" height="260" alt="Сноуборд">
+                            <img src="<?= esc($item['lot_picture']) ?>" width="350" height="260" alt="Сноуборд">
                         </div>
                         <div class="lot__info">
-                            <span class="lot__category"><?= $item['category_name'] ?></span>
+                            <span class="lot__category"><?= esc($item['category_name']) ?></span>
                             <h3 class="lot__title"><a class="text-link"
-                                                      href="lot.php?lot_id=<?= $item['lot_id'] ?>"><?= $item['lot_name'] ?></a>
+                                                      href="lot.php?lot_id=<?= (int)$item['lot_id'] ?>"><?= esc($item['lot_name']) ?></a>
                             </h3>
                             <div class="lot__state">
                                 <div class="lot__rate">
                                     <span class="lot__amount">Стартовая цена</span>
                                     <span
-                                        class="lot__cost"><?= change_number($item['lot_start_price']) . ' &#8381;' ?></span>
+                                        class="lot__cost"><?= change_number(esc($item['lot_start_price'])) . ' &#8381;' ?></span>
                                 </div>
                                 <div class="lot__timer timer">
-                                    <?= time_to_end($item['lot_end_date']); ?>
+                                    <?= time_to_end(esc($item['lot_end_date'])); ?>
                                 </div>
                             </div>
                         </div>
