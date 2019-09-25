@@ -101,6 +101,7 @@ function time_class($ends_str)
 function get_last_bid($id, $default)
 {
     $link = mysqli_connect('localhost', 'root', '', 'yeti_cave');
+    settype($id, 'integer');
     $sql = "select bid_amount from bids
         where bid_lot = $id
         order by bid_amount desc
@@ -299,6 +300,7 @@ function db_get_prepare_stmt($link, $sql, $data = [])
  */
 function checkLogin($link, $login)
 {
+    $login = mysqli_real_escape_string($link, $login);
     $res = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_name`='$login'  LIMIT 1");
     $result = mysqli_fetch_assoc($res);
 

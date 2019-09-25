@@ -16,7 +16,7 @@
                 </td>
                 <td class="rates__timer">
                     <?php $finishing_status = time_class(esc($bets['lot_end_date'])); ?>
-                    <?php if ($finishing_status == 1): ?>
+                    <?php if ($finishing_status === 1): ?>
                         <div class="timer timer--finishing"><?= time_to_end(esc($bets['lot_end_date'])); ?></div>
                     <?php else: ?>
                         <div class="timer"><?= time_to_end(esc($bets['lot_end_date'])); ?></div>

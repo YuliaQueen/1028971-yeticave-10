@@ -11,7 +11,7 @@ $pages_count = '';
 $pages[0] = 1;
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $q_search = strip_tags($_GET['search']);
+    $q_search = mysqli_real_escape_string($link, $_GET['search']);
     $page_items = 6;
     $cur_page = $_GET['page'] ?? 1;
     $offset = ($cur_page - 1) * $page_items;

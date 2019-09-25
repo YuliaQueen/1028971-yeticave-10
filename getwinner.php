@@ -67,8 +67,8 @@ WHERE 1
             $result = $mailer->send($message);
 
             if ($result) {
-                $lot_winner = (int)$winner_info['bid_user'];
-                $lot_id = (int)$winner_info['bid_lot'];
+                $lot_winner = mysqli_real_escape_string($link, $winner_info['bid_user']);
+                $lot_id = mysqli_real_escape_string($link, $winner_info['bid_lot']);
                 $winner_write = mysqli_query($link, "UPDATE lots SET lot_winner = $lot_winner
                      WHERE lot_id = $lot_id");
             };

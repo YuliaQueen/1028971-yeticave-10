@@ -35,11 +35,11 @@
                         </div>
 
                         <?php $finishing_status = time_class(esc($val['lot_end_date'])); ?>
-                        <?php if ($finishing_status == 0): ?>
+                        <?php if ($finishing_status === 0): ?>
                             <div class="lot__timer timer timer--finishing">
                                 Лот завершен!
                             </div>
-                        <?php elseif ($finishing_status == 1): ?>
+                        <?php elseif ($finishing_status === 1): ?>
                             <div class="lot__timer timer timer--finishing">
                                 <?= time_to_end(esc($val['lot_end_date'])); ?>
                             </div>
@@ -59,7 +59,7 @@
 <ul class="pagination-list">
     <li class="pagination-item pagination-item-prev"><a href="#">Назад</a></li>
     <?php foreach ($pages as $page): ?>
-        <li class="pagination-item  <?php if ($page == $cur_page): ?> pagination-item-active <?php endif;
+        <li class="pagination-item  <?php if ($page === $cur_page): ?> pagination-item-active <?php endif;
         ?>"><a href="/?page=<?= $page; ?>"><?= $page; ?></a></li>
     <?php endforeach; ?>
     <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>

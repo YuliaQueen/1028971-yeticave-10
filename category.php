@@ -3,7 +3,7 @@ require('init.php');
 
 // Категории
 $category = query_all($link, 'SELECT * FROM categories');
-
+$lot_list = [];
 $category_id = (int)$_GET['category_id'] ?? 0;
 
 $lot_list = query_all($link, "SELECT *, category_name FROM lots

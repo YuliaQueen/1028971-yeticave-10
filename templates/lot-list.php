@@ -20,11 +20,11 @@
                         </div>
 
                         <?php $finishing_status = time_class(esc($val['lot_end_date'])); ?>
-                        <?php if ($finishing_status == 0): ?>
+                        <?php if ($finishing_status === 0): ?>
                             <div class="lot__timer timer timer--finishing">
                                 Лот завершен!
                             </div>
-                        <?php elseif ($finishing_status == 1): ?>
+                        <?php elseif ($finishing_status === 1): ?>
                             <div class="lot__timer timer timer--finishing">
                                 <?= time_to_end(esc($val['lot_end_date'])); ?>
                             </div>

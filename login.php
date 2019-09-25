@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     };
 //проверка введенного в форму емайл в базе данных
-    $email_in_form = $form['user_email'];
+    $email_in_form = mysqli_real_escape_string($link,$form['user_email']);
     $user_data = query_one($link, "SELECT * FROM `users` WHERE `user_email` = '$email_in_form'");
 
     if ($user_data === false) {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 //Проверка введенного в форму пароля в базе данных
-    $user_pass = $user_data['user_password'];
+    $user_pass = mysqli_real_escape_string($link,$user_data['user_password']);
     $pass_in_form = $form['user_password'];
     $check_pass = password_verify($pass_in_form, $user_pass);
 

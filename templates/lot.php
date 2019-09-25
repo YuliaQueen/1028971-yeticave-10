@@ -17,11 +17,11 @@
                 <div class="lot-item__state">
 
                     <?php $finishing_status = time_class(esc($lot_info['lot_end_date'])); ?>
-                    <?php if ($finishing_status == 0): ?>
+                    <?php if ($finishing_status === 0): ?>
                         <div class="lot-item__timer timer timer--finishing">
                             <b>Закрыт</b>
                         </div>
-                    <?php elseif ($finishing_status == 1): ?>
+                    <?php elseif ($finishing_status === 1): ?>
                         <div class="lot-item__timer timer timer--finishing">
                             <?= time_to_end(esc($lot_info['lot_end_date'])); ?>
                         </div>
@@ -49,14 +49,14 @@
                             <input id="cost" type="text" name="bid"
                                    placeholder="<?= change_number(esc($lot_info['lot_bet_step']))
                                        + get_last_bid($lot_id, esc($lot_info['lot_start_price'])) . ' &#8381;' ?>">
-                            <?php if ($finishing_status == 0): ?>
+                            <?php if ($finishing_status === 0): ?>
                                 <span class="form__error">Нельзя сделать ставку</span>
                             <?php else: ?>
                                 <span class="form__error"><?= esc($errors['bid']) ?? '' ?></span>
                             <?php endif; ?>
 
                         </p>
-                        <button type="submit" class="button" <?php if ($finishing_status == 0) print('disabled') ?>>
+                        <button type="submit" class="button" <?php if ($finishing_status === 0) print('disabled') ?>>
                             Сделать ставку
                         </button>
                     </form>
