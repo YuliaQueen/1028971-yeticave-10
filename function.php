@@ -46,7 +46,7 @@ function esc($str)
 }
 
 
-/** Высчитывает разницу между двумя датами
+/** Высчитывает сколько времени осталось до конца
  * @param string $ends_str
  * @return string
  * @throws Exception
@@ -107,7 +107,7 @@ function get_last_bid($id, $default)
         order by bid_amount desc
         limit 1";
     $result = query_scalar($link, $sql);
-    if ($result == false) {
+    if ($result === false) {
         return $default;
     }
     return $result;
@@ -308,5 +308,6 @@ function checkLogin($link, $login)
 }
 
 ;
+
 
 

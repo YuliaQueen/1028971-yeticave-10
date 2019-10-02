@@ -8,7 +8,7 @@
             <label for="lot-name">Наименование <sup>*</sup></label>
             <input id="lot-name" type="text" name="lot_name" placeholder="Введите наименование лота"
                    value="<?= getPostVal('lot_name'); ?>">
-            <span class="form__error"><?= esc($errors['lot_name']) ?? '' ?></span>
+            <span class="form__error"><?= esc($errors['lot_name'] ?? '') ?></span>
         </div>
 
         <div class="form__item <?= isset($errors['lot_category']) ? ' form__item--invalid' : '' ?>">
@@ -19,7 +19,7 @@
                     <option value="<?= esc($value['category_id']) ?>"><?= esc($value['category_name']); ?></option>
                 <?php endforeach; ?>
             </select>
-            <span class="form__error"><?= esc($errors['lot_category']) ?? ''; ?></span>
+            <span class="form__error"><?= esc($errors['lot_category'] ?? ''); ?></span>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
         <label for="message">Описание <sup>*</sup></label>
         <textarea id="message" name="lot_description"
                   placeholder="Напишите описание лота"><?= trim(getPostVal('lot_description')); ?></textarea>
-        <span class="form__error"><?= esc($errors['lot_description']) ?? ''; ?></span>
+        <span class="form__error"><?= esc($errors['lot_description'] ?? ''); ?></span>
     </div>
 
     <div class="form__item form__item--file <?= isset($errors['lot_picture']) ? 'form__item--invalid' : '' ?>">
@@ -37,7 +37,7 @@
             <label for="lot-img">
                 Добавить
             </label>
-            <span class=" form__error"><?= esc($errors['lot_picture']) ?? ''; ?></span>
+            <span class=" form__error"><?= esc($errors['lot_picture'] ?? ''); ?></span>
         </div>
     </div>
 
@@ -53,14 +53,14 @@
             <label for="lot-step">Шаг ставки <sup>*</sup></label>
             <input id="lot-step" type="text" name="lot_bet_step" placeholder="0"
                    value="<?= getPostVal('lot_bet_step'); ?>">
-            <span class="form__error"><?= esc($errors['lot_bet_step']) ?? ''; ?></span>
+            <span class="form__error"><?= esc($errors['lot_bet_step'] ?? ''); ?></span>
         </div>
 
         <div class="form__item <?= isset($errors['lot_end_date']) ? ' form__item--invalid' : '' ?>">
             <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
             <input value="<?= getPostVal('lot_end_date'); ?>" class="form__input-date" id="lot-date"
                    name="lot_end_date" placeholder="Введите дату в формате ГГГГ-ММ-ДД" type="date">
-            <span class="form__error"><?= esc($errors['lot_end_date']) ?? ''; ?></span>
+            <span class="form__error"><?= esc($errors['lot_end_date'] ?? ''); ?></span>
         </div>
 
     </div>

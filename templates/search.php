@@ -37,7 +37,7 @@
         <li class="pagination-item pagination-item-prev"><a href="#">Назад</a></li>
         <?php foreach ($pages as $page): ?>
             <li class="pagination-item  <?php if ($page === $cur_page): ?> pagination-item-active <?php endif;
-            ?>"><a href="/search.php?search=<?= $q_search; ?>&find=Найти&page=<?= $page; ?>"><?= $page; ?></a></li>
+            ?>"><a href="/search.php?search=<?= $q_search; ?>&find=Найти&page=<?=$page; ?>"><?= $page; ?></a></li>
         <?php endforeach; ?>
         <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
     </ul>

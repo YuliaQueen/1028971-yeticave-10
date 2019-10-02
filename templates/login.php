@@ -6,12 +6,12 @@
         <label for="email">E-mail <sup>*</sup></label>
         <input id="email" type="text" name="user_email" placeholder="Введите e-mail"
                value="<?= esc(getPostVal('user_name')); ?>">
-        <span class="form__error"><?= esc($errors['user_email']) ?? ''; ?></span>
+        <span class="form__error"><?= esc($errors['user_email'] ?? ''); ?></span>
     </div>
     <div class="form__item form__item--last <?= isset($errors['user_password']) ? 'form__item--invalid' : '' ?>">
         <label for="password">Пароль <sup>*</sup></label>
         <input id="password" type="password" name="user_password" placeholder="Введите пароль">
-        <span class="form__error"><?= esc($errors['user_password']) ?? ''; ?></span>
+        <span class="form__error"><?= esc($errors['user_password'] ?? ''); ?></span>
     </div>
     <button type="submit" class="button">Войти</button>
 </form>

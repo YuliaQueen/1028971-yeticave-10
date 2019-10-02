@@ -33,7 +33,7 @@ if (isset($_SESSION['user_name'])) {
 
         };
         //Проверка заполненности категории
-        if ($_POST['lot_category'] == "default") {
+        if ($_POST['lot_category'] === "default") {
             $errors['lot_category'] = 'Выберите категорию';
         }
 
@@ -50,8 +50,8 @@ if (isset($_SESSION['user_name'])) {
                     saveImages($check, $upload);
                 } else {
                     $errors['lot_picture'] = 'Слишком большое расширение файла';
-                }
-            }
+                };
+            };
         };
 
 
@@ -65,6 +65,11 @@ if (isset($_SESSION['user_name'])) {
             if (strtotime($_POST['lot_end_date']) - time() < 86400) {
                 $errors['lot_end_date'] = 'Введите период более суток';
             }
+        };
+
+        //Проверка начальной цены
+        if (!is_int($_POST['lot_start_price'])) {
+            $errors['lot_start_price'] = 'Введите число цифрами';
         };
 
         //Проверка шага ставки

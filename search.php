@@ -8,24 +8,23 @@ $search_result = [];
 $errors = '';
 $q_search = '';
 $pages_count = '';
-$pages[0] = 1;
+$page_items = 6;
+$cur_page = $_GET['page'] ?? 1;
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $q_search = mysqli_real_escape_string($link, $_GET['search']);
-    $page_items = 6;
-    $cur_page = $_GET['page'] ?? 1;
-    $offset = ($cur_page - 1) * $page_items;
 
+
+    $offset = ($cur_page - 1) * $page_items;
     $search_result = query_all($link, "SELECT *, lot_name FROM lots
     JOIN categories c on lots.lot_category = c.category_id
     WHERE MATCH(lot_name, lot_description) AGAINST('$q_search')
     ORDER BY lot_end_date DESC LIMIT $page_items OFFSET $offset");
 
-    if (!empty($search_result)) {
-        $lots_count = count($search_result);
-        $pages_count = ceil($lots_count / $page_items);
+    if (isset($search_result)) {
+        $lots_count = query_scalar($link, "SELECT COUNT(*) FROM lots WHERE MATCH(lot_name, lot_description) AGAINST('$q_search')");
+        $pages_count = ceil((int)$lots_count / $page_items);
         $pages = range(1, $pages_count);
-
         if ($cur_page > $pages_count || !$cur_page) {
             http_response_code(404);
             exit();

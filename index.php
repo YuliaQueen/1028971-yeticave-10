@@ -3,6 +3,7 @@ require('init.php');
 require('vendor/autoload.php');
 require('getwinner.php');
 
+$title = '';
 
 // Категории
 $category = query_all($link, 'SELECT * FROM categories');
@@ -21,7 +22,7 @@ SELECT
     c.category_name AS category
 FROM lots l
 JOIN categories AS c ON l.lot_category = c.category_id
-WHERE l.lot_end_date >= CURDATE()
+WHERE l.lot_end_date > CURDATE()
 ORDER BY l.lot_end_date DESC LIMIT $page_items OFFSET $offset");
 
 

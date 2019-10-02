@@ -8,6 +8,10 @@ $category = query_all($link, 'SELECT * FROM categories');
 // Текуший лот
 $lot_id = (int)$_GET['lot_id'] ?? 0;
 
+//Последняя ставка
+$last_bid = query_one($link,
+    "SELECT bid_amount, bid_user FROM bids WHERE bid_lot = '$lot_id' ORDER BY bid_date DESC LIMIT 1");
+
 
 //Инфо о текущем лоте
 $lot_info = query_one($link, "
@@ -28,11 +32,14 @@ $bids = query_all($link, "SELECT bid_date, bid_amount, bid_user, user_name FROM 
 JOIN users ON bids.bid_user = users.user_id
 WHERE bid_lot = '$lot_id' ORDER BY bid_amount DESC LIMIT 10");
 
+//Последний юзер, сделавший ставку
+$last_bid_user = query_scalar($link, "SELECT bid_user FROM bids
+WHERE bid_lot = '$lot_id' ORDER BY bid_amount DESC LIMIT 1");
 
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+    //Если ставка пустая
     if (empty($_POST['bid'])) {
         $errors['bid'] = 'Введите ставку';
     };
@@ -42,11 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['bid'] = 'Нельзя сделать ставку к своему лоту';
     };
 
-    $last_bid = query_scalar($link,
-        "SELECT bid_amount FROM bids WHERE bid_lot = '$lot_id' ORDER BY bid_date DESC LIMIT 1");
+    //Запрет повтороной ставки
+    if ($last_bid_user === $_SESSION['user_name']['user_id']) {
+        $errors['bid'] = 'Нельзя сделать ставку второй раз подряд';
+    };
 
     //Сравнение текущей и предыдущей ставок
-    if ((int)$_POST['bid'] < (int)$last_bid) {
+    if ((int)$_POST['bid'] <= (int)$last_bid['bid_amount']) {
         $errors['bid'] = 'Слишком маленькая ставка';
     };
 
@@ -83,7 +92,8 @@ $main_content = include_template('lot.php', [
     'category' => $category,
     'bids' => $bids,
     'errors' => $errors,
-    'lot_id' => $lot_id
+    'lot_id' => $lot_id,
+    'last_bid_user' => $last_bid_user
 ]);
 
 $layout_content = include_template('layout.php', [

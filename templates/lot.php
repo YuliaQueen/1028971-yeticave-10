@@ -41,26 +41,26 @@
                             Мин. ставка <span><?= change_number(esc($lot_info['lot_bet_step'])) . ' &#8381;' ?></span>
                         </div>
                     </div>
+                    <?php if ($_SESSION['user_name']['user_id'] !== $last_bid_user):?>
+                        <form class="lot-item__form <?= esc(count($errors)) ? ' form--invalid' : ''; ?>"
+                              action="<?= 'lot.php?lot_id=' . $lot_id; ?>" method="post" autocomplete="off">
+                            <p class="lot-item__form-item form__item <?= isset($errors['bid']) ? ' form__item--invalid' : '' ?> ">
+                                <label for="cost">Ваша ставка</label>
+                                <input id="cost" type="text" name="bid"
+                                       placeholder="<?= change_number(esc($lot_info['lot_bet_step']))
+                                           + get_last_bid($lot_id, esc($lot_info['lot_start_price'])) . ' &#8381;' ?>">
+                                <?php if ($finishing_status === 0): ?>
+                                    <span class="form__error">Нельзя сделать ставку</span>
+                                <?php else: ?>
+                                    <span class="form__error"><?= esc($errors['bid'] ?? '') ?></span>
+                                <?php endif; ?>
 
-                    <form class="lot-item__form <?= esc(count($errors)) ? ' form--invalid' : ''; ?>"
-                          action="<?= 'lot.php?lot_id=' . $lot_id; ?>" method="post" autocomplete="off">
-                        <p class="lot-item__form-item form__item <?= isset($errors['bid']) ? ' form__item--invalid' : '' ?> ">
-                            <label for="cost">Ваша ставка</label>
-                            <input id="cost" type="text" name="bid"
-                                   placeholder="<?= change_number(esc($lot_info['lot_bet_step']))
-                                       + get_last_bid($lot_id, esc($lot_info['lot_start_price'])) . ' &#8381;' ?>">
-                            <?php if ($finishing_status === 0): ?>
-                                <span class="form__error">Нельзя сделать ставку</span>
-                            <?php else: ?>
-                                <span class="form__error"><?= esc($errors['bid']) ?? '' ?></span>
-                            <?php endif; ?>
-
-                        </p>
-                        <button type="submit" class="button" <?php if ($finishing_status === 0) print('disabled') ?>>
-                            Сделать ставку
-                        </button>
-                    </form>
-
+                            </p>
+                            <button type="submit" class="button" <?php if ($finishing_status === 0) print('disabled') ?>>
+                                Сделать ставку
+                            </button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
@@ -69,13 +69,11 @@
                 <table class="history__list">
                     <?php foreach ($bids as $bid): ?>
                         <tr class="history__item">
-
                             <td class="history__name"><?= esc($bid['user_name']) ?></td>
                             <td class="history__price"><?= esc($bid['bid_amount']) ?></td>
                             <td class="history__time"><?= esc($bid['bid_date']) ?></td>
-
                         </tr>
-                    <? endforeach; ?>
+                    <?php endforeach; ?>
                 </table>
             </div>
         </div>

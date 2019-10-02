@@ -2,6 +2,7 @@
 require('init.php');
 
 // Категории
+$items_structure = [];
 $category = query_all($link, 'SELECT * FROM categories');
 $lot_list = [];
 $category_id = (int)$_GET['category_id'] ?? 0;
