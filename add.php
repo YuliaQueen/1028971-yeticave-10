@@ -56,13 +56,18 @@ if (isset($_SESSION['user_name'])) {
         };
 
         //Проверка начальной цены
-        if (!is_numeric($_POST['lot_start_price']) && $_POST['lot_start_price'] <= 0) {
-            $errors['lot_start_price'] = 'Введите число больше нуля';
+        if (!is_numeric($_POST['lot_start_price'])) {
+            $errors['lot_start_price'] = 'Введите число';
         };
+
         //Проверка шага ставки
         if ((int)$_POST['lot_bet_step'] <= 0) {
             $errors['lot_bet_step'] = "Шаг ставки - больше нуля";
         };
+        //Проверка начальной цены
+        if ((int)$_POST['lot_start_price'] <= 0) {
+            $errors['lot_start_price'] = 'Введите число больше нуля';
+        }
 
 
         //Если ошибок 0, то начинаем формировать запрос на добавление лота в базу
