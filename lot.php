@@ -22,7 +22,9 @@ FROM lots l
 JOIN categories AS c ON l.lot_category = c.category_id
 WHERE lot_id = $lot_id");
 
-if ($lot_info == null) {
+
+
+if ($lot_info === false) {
     include '404.php';
     die();
 };
@@ -38,20 +40,15 @@ WHERE bid_lot = '$lot_id' ORDER BY bid_amount DESC LIMIT 1");
 
 $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Если ставка пустая
     if (empty($_POST['bid'])) {
         $errors['bid'] = 'Введите ставку';
     };
 
     //Запрет ставки к своему лоту
-    if (isset($lot_info['lot_author']) && $lot_info['lot_author'] == $_SESSION['user_name']['user_id']) {
+    if (isset($lot_info['lot_author']) && $lot_info['lot_author'] === $_SESSION['user_name']['user_id']) {
         $errors['bid'] = 'Нельзя сделать ставку к своему лоту';
-    };
-
-    //Запрет повтороной ставки
-    if ($last_bid_user === $_SESSION['user_name']['user_id']) {
-        $errors['bid'] = 'Нельзя сделать ставку второй раз подряд';
     };
 
     //Сравнение текущей и предыдущей ставок
@@ -91,6 +88,7 @@ $main_content = include_template('lot.php', [
     'lot_info' => $lot_info,
     'category' => $category,
     'bids' => $bids,
+    'last_bid' => get_last_bid($link, $lot_id, $lot_info['lot_start_price']),
     'errors' => $errors,
     'lot_id' => $lot_id,
     'last_bid_user' => $last_bid_user

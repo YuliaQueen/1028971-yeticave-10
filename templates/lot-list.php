@@ -40,3 +40,12 @@
         <?php endforeach; ?>
     </ul>
 </section>
+
+<ul class="pagination-list">
+    <li class="pagination-item pagination-item-prev"><a href="#">Назад</a></li>
+    <?php foreach ($pages as $page): ?>
+        <li class="pagination-item  <?= ((int)$page === (int)$cur_page) ? ' pagination-item-active' : '';
+        ?>"><a href="/category.php?category_id=<?= $category_id ?>&page=<?= $page; ?>"><?= $page; ?></a></li>
+    <?php endforeach; ?>
+    <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
+</ul>

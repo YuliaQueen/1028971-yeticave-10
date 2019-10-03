@@ -66,8 +66,6 @@ function time_to_end($ends_str)
     return $difference->format('%H час. %i мин.');
 }
 
-;
-
 
 /**Сравнивает две даты
  * @param $ends_str
@@ -91,16 +89,15 @@ function time_class($ends_str)
     return 2;
 }
 
-;
 
 /** Возвращает последнюю ставку для лота или его стартовую цену
+ * @param resource $link ресурс соединения с БД
  * @param int $id id лота
  * @param int $default начальная цена
  * @return bool
  */
-function get_last_bid($id, $default)
+function get_last_bid($link, $id, $default)
 {
-    $link = mysqli_connect('localhost', 'root', '', 'yeti_cave');
     settype($id, 'integer');
     $sql = "select bid_amount from bids
         where bid_lot = $id
@@ -112,8 +109,6 @@ function get_last_bid($id, $default)
     }
     return $result;
 }
-
-;
 
 
 /**Запрашивает все строки из БД
@@ -129,13 +124,11 @@ function query_all($link, $sql)
         $result = mysqli_fetch_all($stmt, MYSQLI_ASSOC);
         mysqli_free_result($stmt);
         return $result;
-    } else {
-        echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
-        return false;
     }
+    echo "<div><strong>MySQL Error :</strong> " . mysqli_error($link) . "</div>";
+    return false;
 }
 
-;
 
 /** Запрашивает одну строку из БД
  * @param resource $link ресурс соединения
@@ -148,7 +141,7 @@ function query_one($link, $sql)
     if ($stmt) {
         $result = mysqli_fetch_assoc($stmt);
         mysqli_free_result($stmt);
-        if ($result == null) {
+        if ($result === null) {
             return false;
         }
         return $result;
@@ -157,7 +150,6 @@ function query_one($link, $sql)
     return false;
 }
 
-;
 
 /** запрос значения ключа из первой строки массива из БД
  * @param resource $link ресурс соединения
@@ -170,7 +162,7 @@ function query_scalar($link, $sql)
     if ($stmt) {
         $result = mysqli_fetch_row($stmt);
         mysqli_free_result($stmt);
-        if ($result == null) {
+        if ($result === null) {
             return false;
         }
         return $result[0];
@@ -179,7 +171,6 @@ function query_scalar($link, $sql)
     return false;
 }
 
-;
 
 /** Проверяет расширение загружаемого файла
  * @param string $filename имя файла
@@ -191,11 +182,11 @@ function checkFile($filename, $tempName)
     if (($pos = strrpos($filename, ".")) != false) {
         $ext = substr($filename, $pos);
         $found = false;
-        if (strcasecmp($ext, ".png") == 0) {
+        if (strcasecmp($ext, ".png") === 0) {
             $found = imagecreatefrompng($tempName);
-        } elseif (strcasecmp($ext, ".jpg") == 0 || strcasecmp($ext, ".jpeg") == 0) {
+        } elseif (strcasecmp($ext, ".jpg") === 0 || strcasecmp($ext, ".jpeg") === 0) {
             $found = imagecreatefromjpeg($tempName);
-        } elseif (strcasecmp($ext, ".gif") == 0) {
+        } elseif (strcasecmp($ext, ".gif") === 0) {
             $found = imagecreatefromgif($tempName);
         }
         return $found;
@@ -203,7 +194,6 @@ function checkFile($filename, $tempName)
     return false;
 }
 
-;
 
 /**Сохраняет проверенный файл
  * @param string $checked проверенный файл
@@ -217,7 +207,6 @@ function saveImages($checked, $save_as)
     }
 }
 
-;
 
 /**сохраняет введенные в форму данные после перезагрузки страницы
  * @param string $name Строка, которую нужно сохранить
@@ -228,7 +217,6 @@ function getPostVal($name)
     return $_POST[$name] ?? '';
 }
 
-;
 
 /**
  * Создает подготовленное выражение на основе готового SQL запроса и переданных данных
@@ -287,8 +275,6 @@ function db_get_prepare_stmt($link, $sql, $data = [])
     return $stmt;
 }
 
-;
-
 
 /**
  * Проверяет существует ли логин, введенный в форму входа, в БД
@@ -307,7 +293,27 @@ function checkLogin($link, $login)
     return $result;
 }
 
-;
+/**
+ * Загрузить и сохранить картинку
+ * @param array $file $_FILES['item']
+ * @return string|bool Имя файла или FALSE
+ */
+function saveUploadedFile(&$file)
+{
+    $upload = 'img/' . $_FILES['lot_picture']['name'];
+    if (isset($file) && $file['error'] === 0) {
+        $tmp_name = $_FILES['lot_picture']['tmp_name'];
+        $size = getimagesize($tmp_name);
 
+        if ($size[0] < 1200 || $size[1] < 1200) {
+            $check = checkFile($upload, $tmp_name);
 
+            if ($check !== false) {
+                saveImages($check, $upload);
+                return $upload;
+            }
+            return false;
+        };
+    };
+}
 

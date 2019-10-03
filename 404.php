@@ -1,8 +1,8 @@
 <?php
-require('init.php');
+require_once('init.php');
 
 // шаблонизация
-$main_content = include_template('login.php', [
+$main_content = include_template('404.php', [
     'category' => $category,
 ]);
 

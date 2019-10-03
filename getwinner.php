@@ -72,11 +72,8 @@ WHERE 1
                 $winner_write = mysqli_query($link, "UPDATE lots SET lot_winner = $lot_winner
                      WHERE lot_id = $lot_id");
             };
-
         };
     };
-
-
 };
 
 

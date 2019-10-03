@@ -11,7 +11,7 @@ $pages_count = '';
 $page_items = 6;
 $cur_page = $_GET['page'] ?? 1;
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $q_search = mysqli_real_escape_string($link, $_GET['search']);
 
 
@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     ORDER BY lot_end_date DESC LIMIT $page_items OFFSET $offset");
 
     if (isset($search_result)) {
-        $lots_count = query_scalar($link, "SELECT COUNT(*) FROM lots WHERE MATCH(lot_name, lot_description) AGAINST('$q_search')");
+        $lots_count = query_scalar($link,
+            "SELECT COUNT(*) FROM lots WHERE MATCH(lot_name, lot_description) AGAINST('$q_search')");
         $pages_count = ceil((int)$lots_count / $page_items);
         $pages = range(1, $pages_count);
         if ($cur_page > $pages_count || !$cur_page) {

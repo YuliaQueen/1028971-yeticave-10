@@ -46,7 +46,7 @@
             <label for="lot-rate">Начальная цена <sup>*</sup></label>
             <input id="lot-rate" type="text" name="lot_start_price" placeholder="0"
                    value="<?= esc(getPostVal('lot_start_price')); ?>">
-            <span class="form__error"><?= $errors['lot_start_price'] ?? ''; ?></span>
+            <span class="form__error"><?= esc($errors['lot_start_price'] ?? ''); ?></span>
         </div>
 
         <div class="form__item form__item--small <?= isset($errors['lot_bet_step']) ? 'form__item--invalid' : '' ?>">

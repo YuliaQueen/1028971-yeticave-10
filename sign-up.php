@@ -8,7 +8,7 @@ $category = query_all($link, 'SELECT * FROM categories');
 
 $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $required = ['user_name', 'user_email', 'user_password', 'user_contacts'];
 

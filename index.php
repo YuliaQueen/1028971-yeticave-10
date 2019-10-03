@@ -1,7 +1,6 @@
 <?php
 require('init.php');
 require('vendor/autoload.php');
-require('getwinner.php');
 
 $title = '';
 

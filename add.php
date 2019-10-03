@@ -7,7 +7,7 @@ $category = query_all($link, 'SELECT * FROM categories');
 $errors = [];
 
 if (isset($_SESSION['user_name'])) {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $required = [
             'lot_name',
@@ -37,28 +37,16 @@ if (isset($_SESSION['user_name'])) {
             $errors['lot_category'] = 'Выберите категорию';
         }
 
-        //Загрузка файла, проверка расширения
-        if (isset($_FILES['lot_picture']) && $_FILES['lot_picture']['error'] === 0) {
-            $upload = 'img/' . $_FILES['lot_picture']['name'];
-            $tmp_name = $_FILES['lot_picture']['tmp_name'];
-            $size = getimagesize($tmp_name);
-
-            if ($size[0] < 1200 || $size[1] < 1200) {
-                $check = checkFile($upload, $tmp_name);
-
-                if ($check != false) {
-                    saveImages($check, $upload);
-                } else {
-                    $errors['lot_picture'] = 'Слишком большое расширение файла';
-                };
-            };
-        };
-
+        $upload = saveUploadedFile($_FILES['lot_picture']);
+        if ( $upload === FALSE) {
+            $errors['lot_picture'] = 'Слишком большое расширение файла';
+        }
 
         //Проверка - заружен ли файл
         if (!empty($_FILES['lot_picture']['error'])) {
             $errors['lot_picture'] = "Загрузите файл";
         };
+
 
         //Проверка даты окончания торгов
         if (isset($_POST['lot_end_date'])) {
@@ -68,10 +56,9 @@ if (isset($_SESSION['user_name'])) {
         };
 
         //Проверка начальной цены
-        if (!is_int($_POST['lot_start_price'])) {
-            $errors['lot_start_price'] = 'Введите число цифрами';
+        if (!is_numeric($_POST['lot_start_price']) && $_POST['lot_start_price'] <= 0) {
+            $errors['lot_start_price'] = 'Введите число больше нуля';
         };
-
         //Проверка шага ставки
         if ((int)$_POST['lot_bet_step'] <= 0) {
             $errors['lot_bet_step'] = "Шаг ставки - больше нуля";
