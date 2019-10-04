@@ -4,7 +4,7 @@
             <h2>Ошибка</h2>
         </header>
         <article>
-            <p><?= $error; ?></p>
+            <p><?= $error ?? ''; ?></p>
         </article>
     </div>
 </main>

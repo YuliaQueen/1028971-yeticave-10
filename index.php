@@ -21,16 +21,16 @@ SELECT
     c.category_name AS category
 FROM lots l
 JOIN categories AS c ON l.lot_category = c.category_id
-WHERE l.lot_end_date > CURDATE()
-ORDER BY l.lot_end_date DESC LIMIT $page_items OFFSET $offset");
+WHERE l.lot_end_date >= CURDATE()
+ORDER BY l.lot_end_date  LIMIT $page_items OFFSET $offset");
 
 
 if (isset($items_count)) {
     $pages_count = ceil((int)$lots_count['cnt'] / $page_items);
 
     if ($cur_page > $pages_count || !$cur_page) {
-        http_response_code(404);
-        exit();
+        include '404.php';
+        die();
     }
 };
 $pages = range(1, $pages_count);

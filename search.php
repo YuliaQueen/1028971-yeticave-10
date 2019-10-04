@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $pages_count = ceil((int)$lots_count / $page_items);
         $pages = range(1, $pages_count);
         if ($cur_page > $pages_count || !$cur_page) {
-            http_response_code(404);
-            exit();
+            include '404.php';
+            die();
         }
     } else {
         $errors = "Ничего не найдено по вашему запросу";

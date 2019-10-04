@@ -64,7 +64,7 @@
             <?php endif; ?>
 
             <div class="history">
-                <h3>История ставок (<span><?= count($bids) ?></span>)</h3>
+                <h3>История ставок (<span><?= count($bids)  ?></span>)</h3>
                 <table class="history__list">
                     <?php foreach ($bids as $bid): ?>
                         <tr class="history__item">

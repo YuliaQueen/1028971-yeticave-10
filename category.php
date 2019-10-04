@@ -28,10 +28,12 @@ $cat_name = query_scalar($link, "SELECT category_name
 
 if (isset($lot_list)) {
     $page_count = ceil((int)$lots_count / $page_items);
-
+    $pages = range(1, $page_count);
+    if ($cur_page > $page_count || !$cur_page) {
+        include '404.php';
+        die();
+    }
 };
-
-$pages = range(1, $page_count);
 
 
 // шаблонизация

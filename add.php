@@ -8,7 +8,6 @@ $errors = [];
 
 if (isset($_SESSION['user_name'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
         $required = [
             'lot_name',
             'lot_start_price',
@@ -30,15 +29,15 @@ if (isset($_SESSION['user_name'])) {
             if (empty($_POST[$field])) {
                 $errors[$field] = $fields[$field];
             }
-
         };
         //Проверка заполненности категории
         if ($_POST['lot_category'] === "default") {
             $errors['lot_category'] = 'Выберите категорию';
         }
 
+        //Проверка расширения файла
         $upload = saveUploadedFile($_FILES['lot_picture']);
-        if ( $upload === FALSE) {
+        if ($upload === false) {
             $errors['lot_picture'] = 'Слишком большое расширение файла';
         }
 
@@ -60,9 +59,14 @@ if (isset($_SESSION['user_name'])) {
             $errors['lot_start_price'] = 'Введите число';
         };
 
-        //Проверка шага ставки
+        //Проверка величины шага ставки
         if ((int)$_POST['lot_bet_step'] <= 0) {
             $errors['lot_bet_step'] = "Шаг ставки - больше нуля";
+        };
+
+        //Проверка шага ставки на число
+        if (!is_numeric($_POST['lot_bet_step'])) {
+            $errors['lot_bet_step'] = 'Введите число';
         };
         //Проверка начальной цены
         if ((int)$_POST['lot_start_price'] <= 0) {
@@ -122,4 +126,3 @@ $layout_content = include_template('layout.php', [
 ]);
 
 print($layout_content);
-

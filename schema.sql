@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS lots
 CREATE TABLE IF NOT EXISTS bids
 (
     bid_id     BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    bid_date   DATE        NOT NULL,
+    bid_date   DATETIME        NOT NULL,
     bid_amount INT UNSIGNED    NOT NULL,
 
     bid_user   INT UNSIGNED    NOT NULL,

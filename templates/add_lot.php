@@ -16,7 +16,12 @@
             <select id="category" name="lot_category">
                 <option value="default">Выберите категорию</option>
                 <?php foreach ($category as $value): ?>
-                    <option value="<?= esc($value['category_id']) ?>"><?= esc($value['category_name']); ?></option>
+                    <?php if ($value['category_id'] === getPostVal('lot_category')): ?>
+                        <option selected="selected"
+                                value="<?= $value['category_id'] ?>"><?= esc($value['category_name']); ?></option>
+                    <?php else: ?>
+                        <option value="<?= $value['category_id'] ?>"><?= esc($value['category_name']); ?></option>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </select>
             <span class="form__error"><?= esc($errors['lot_category'] ?? ''); ?></span>
@@ -45,20 +50,20 @@
         <div class="form__item form__item--small <?= isset($errors['lot_start_price']) ? 'form__item--invalid' : '' ?>">
             <label for="lot-rate">Начальная цена <sup>*</sup></label>
             <input id="lot-rate" type="text" name="lot_start_price" placeholder="0"
-                   value="<?= esc(getPostVal('lot_start_price')); ?>">
+                   value="<?= esc(getPostVal('lot_start_price')) ?? ''; ?>">
             <span class="form__error"><?= esc($errors['lot_start_price'] ?? ''); ?></span>
         </div>
 
         <div class="form__item form__item--small <?= isset($errors['lot_bet_step']) ? 'form__item--invalid' : '' ?>">
             <label for="lot-step">Шаг ставки <sup>*</sup></label>
             <input id="lot-step" type="text" name="lot_bet_step" placeholder="0"
-                   value="<?= getPostVal('lot_bet_step'); ?>">
+                   value="<?= getPostVal('lot_bet_step') ?? ''; ?>">
             <span class="form__error"><?= esc($errors['lot_bet_step'] ?? ''); ?></span>
         </div>
 
         <div class="form__item <?= isset($errors['lot_end_date']) ? ' form__item--invalid' : '' ?>">
             <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
-            <input value="<?= getPostVal('lot_end_date'); ?>" class="form__input-date" id="lot-date"
+            <input value="<?= getPostVal('lot_end_date') ?? ''; ?>" class="form__input-date" id="lot-date"
                    name="lot_end_date" placeholder="Введите дату в формате ГГГГ-ММ-ДД" type="date">
             <span class="form__error"><?= esc($errors['lot_end_date'] ?? ''); ?></span>
         </div>

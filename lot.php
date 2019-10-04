@@ -23,7 +23,6 @@ JOIN categories AS c ON l.lot_category = c.category_id
 WHERE lot_id = $lot_id");
 
 
-
 if ($lot_info === false) {
     include '404.php';
     die();
@@ -52,10 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     };
 
     //Сравнение текущей и предыдущей ставок
-    if ((int)$_POST['bid'] <= (int)$last_bid['bid_amount']) {
+    if ((int)$_POST['bid'] < ((int)$last_bid['bid_amount'] + (int)$lot_info['lot_bet_step'])) {
         $errors['bid'] = 'Слишком маленькая ставка';
     };
-
     //Если ставка не число или меньше нуля
     if ((!intval($_POST['bid'])) || intval($_POST['bid']) <= 0) {
         $errors['bid'] = 'Введите цифры больше нуля';

@@ -75,15 +75,13 @@ function time_to_end($ends_str)
 function time_class($ends_str)
 {
     $date_then = DateTime::createFromFormat('Y-m-d H:i:s', "$ends_str 23:59:59");
-
     $date_now = new DateTime();
 
     if ($date_then < $date_now) {
         return 0;
     }
     $difference = $date_then->diff($date_now, false);
-
-    if ($difference->h <= 1) {
+    if ($difference->h <= 1 && $difference->days == 0) {
         return 1;
     }
     return 2;
@@ -316,4 +314,3 @@ function saveUploadedFile(&$file)
         };
     };
 }
-

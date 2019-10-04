@@ -9,7 +9,7 @@ $main_content = include_template('404.php', [
 $layout_content = include_template('layout.php', [
     'category' => $category,
     'content' => $main_content,
-    'title' => 'Вход'
+    'title' => 'Страницы не существует'
 
 ]);
 
