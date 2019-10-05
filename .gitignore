@@ -11,3 +11,4 @@ uploads/*
 !uploads/.gitkeep
 img/Nidecer.jpg
 *.jpg
+.php_cs.cache
