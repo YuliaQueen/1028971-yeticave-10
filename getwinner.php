@@ -16,6 +16,7 @@ if (!empty($finished_lots)) {
     foreach ($finished_lots as $lot) {
         $finished_lots_ids [] = $lot['lot_id']; // Id закончившихся лотов
     };
+
     $sql = "SELECT b.bid_user, b.bid_lot, lot_name, b.bid_amount, user_email, user_name FROM bids b
 LEFT JOIN
 		(SELECT bid_lot, MAX(bid_amount) AS bid_amount
@@ -30,20 +31,22 @@ WHERE 1
 	AND b.bid_amount = bmax.bid_amount";
 
     $finished_lots_winners_temp = query_all($link, $sql); //временный массив с победителями
-
     $finished_lots_winners = [];
 
     foreach ($finished_lots_winners_temp as $winner) {
         $finished_lots_winners [$winner['bid_lot']] = $winner; // ключ - это id лота, значение - данные самой большой ставки
     };
+
     foreach ($finished_lots as &$lot) {
         if (isset($finished_lots_winners[$lot['lot_id']])) {
             $lot['winner'] = $finished_lots_winners[$lot['lot_id']];
         } else {
             $lot['winner'] = false;
         };
+
         if (!empty($lot['winner'])) {
             $winner_info = $lot['winner'];
+
             $transport = (new Swift_SmtpTransport('phpdemo.ru', 25))
                 ->setUsername('keks@phpdemo.ru')
                 ->setPassword('htmlacademy');
